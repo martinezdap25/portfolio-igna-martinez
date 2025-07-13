@@ -1,23 +1,17 @@
-import DarkModeToggle from '@/components/navbar/DarkModeToggle'
-import { getDictionary } from './dictionaries'
-import ThemeToggle from '@/components/ThemeToggle' // 👈 Ajustá el path si está en otro lugar
+import { getDictionary } from './dictionaries';
+import Header from '@/components/header/Header';
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ lang: 'en' | 'es' }>
+  params: Promise<{ lang: 'en' | 'es' }>;
 }) {
-  const { lang } = await params
-  const dict = await getDictionary(lang)
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
 
   return (
-    <main style={{ padding: 20 }}>
-      {/* Botón de tema */}
-      <ThemeToggle />
-      <DarkModeToggle />
-
-      <h1>{dict.greeting}</h1>
-      <button>{dict.products.cart}</button>
+    <main>
+      <Header dict={dict} />
 
       <div className="bg-white dark:bg-gray-800 rounded-lg px-6 py-8 ring shadow-xl ring-gray-900/5 mt-4 transition-colors duration-300">
         <div>
@@ -33,9 +27,9 @@ export default async function Page({
         </p>
       </div>
     </main>
-  )
+  );
 }
 
 export async function generateStaticParams() {
-  return [{ lang: 'en' }, { lang: 'es' }]
+  return [{ lang: 'en' }, { lang: 'es' }];
 }

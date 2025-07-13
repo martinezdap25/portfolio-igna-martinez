@@ -1,6 +1,7 @@
 {
-  "products": {
-    "cart": "Add to Cart"
-  },
-  "greeting": "Welcome"
+  "nav": {
+    "projects": "Projects",
+    "about": "About me",
+    "contact": "Contact"
+  }
 }
