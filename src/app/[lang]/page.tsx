@@ -1,3 +1,4 @@
+import DarkModeToggle from '@/components/navbar/DarkModeToggle'
 import { getDictionary } from './dictionaries'
 import ThemeToggle from '@/components/ThemeToggle' // 👈 Ajustá el path si está en otro lugar
 
@@ -13,6 +14,7 @@ export default async function Page({
     <main style={{ padding: 20 }}>
       {/* Botón de tema */}
       <ThemeToggle />
+      <DarkModeToggle />
 
       <h1>{dict.greeting}</h1>
       <button>{dict.products.cart}</button>
