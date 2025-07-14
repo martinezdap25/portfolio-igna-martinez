@@ -1,18 +1,6 @@
-import { getDictionary } from './dictionaries';
-import Header from '@/components/header/Header';
-
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: 'en' | 'es' }>;
-}) {
-  const { lang } = await params;
-  const dict = await getDictionary(lang);
-
+export default function Page() {
   return (
     <main>
-      <Header dict={dict} />
-
       <div className="bg-white dark:bg-gray-800 rounded-lg px-6 py-8 ring shadow-xl ring-gray-900/5 mt-4 transition-colors duration-300">
         <div>
           <span className="inline-flex items-center justify-center rounded-md bg-indigo-500 p-2 shadow-lg">
@@ -28,8 +16,4 @@ export default async function Page({
       </div>
     </main>
   );
-}
-
-export async function generateStaticParams() {
-  return [{ lang: 'en' }, { lang: 'es' }];
 }

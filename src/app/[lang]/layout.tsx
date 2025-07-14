@@ -1,23 +1,9 @@
 import '../globals.css'
 import { ReactNode } from 'react'
+import Header from '@/components/header/Header'
 
 export async function generateStaticParams() {
   return [{ lang: 'en' }, { lang: 'es' }]
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: 'en' | 'es' }>
-}) {
-  const { lang } = await params
-  return {
-    title: lang === 'en' ? 'My Website' : 'Mi Sitio Web',
-    description:
-      lang === 'en'
-        ? 'Welcome to my website'
-        : 'Bienvenido a mi sitio web',
-  }
 }
 
 export default async function RootLayout({
@@ -25,20 +11,25 @@ export default async function RootLayout({
   params,
 }: {
   children: ReactNode
-  params: Promise<{ lang: 'en' | 'es' }>
+  params: { lang: 'en' | 'es' }
 }) {
-  const { lang } = await params
+  const { lang } = params
 
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning
+      className="no-transition"
+    >
       <head>
-        {/* Script para aplicar dark mode antes de que React hidrate */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                const theme = localStorage.theme;
-                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                let theme = localStorage.getItem('theme');
+                if (!theme) {
+                  theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  localStorage.setItem('theme', theme);
+                }
+                if (theme === 'dark') {
                   document.documentElement.classList.add('dark');
                 } else {
                   document.documentElement.classList.remove('dark');
@@ -48,7 +39,10 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Header lang={lang} />
+        {children}
+      </body>
     </html>
   )
 }

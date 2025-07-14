@@ -1,51 +1,39 @@
-'use client';
+'use client'
 
-import { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
-import { useRouter, usePathname } from 'next/navigation';
+import { useState, useEffect, useRef } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import Image from 'next/image'
 
 const languages = [
-    {
-        code: 'es',
-        label: 'Español',
-        flag: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg',
-    },
-    {
-        code: 'en',
-        label: 'English',
-        flag: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
-    },
-];
+    { code: 'es', label: 'Español', flag: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg' },
+    { code: 'en', label: 'English', flag: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg' },
+]
 
-export default function LanguageDropdown() {
-    const [langOpen, setLangOpen] = useState(false);
-    const langRef = useRef<HTMLDivElement>(null);
-    const [isNavigating, setIsNavigating] = useState(false)
-
-    const router = useRouter();
-    const pathname = usePathname();
-    const currentLocale = pathname.split('/')[1];
-    const currentLang = languages.find((l) => l.code === currentLocale) || languages[0];
+export default function LanguageDropdown({ currentLang }: { currentLang: string }) {
+    const [langOpen, setLangOpen] = useState(false)
+    const langRef = useRef<HTMLDivElement>(null)
+    const router = useRouter()
+    const pathname = usePathname()
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (langRef.current && !langRef.current.contains(event.target as Node)) {
-                setLangOpen(false);
+                setLangOpen(false)
             }
         }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
 
     const handleLanguageChange = (code: string) => {
-        if (isNavigating || code === currentLocale) return
-        setIsNavigating(true)
-
+        if (code === currentLang) return
         const segments = pathname.split('/')
         segments[1] = code
-        const newPath = segments.join('/') || '/'
-        router.push(newPath)
+        router.push(segments.join('/'))
+        setLangOpen(false)
     }
+
+    const selectedLang = languages.find(l => l.code === currentLang) || languages[0]
 
     return (
         <div className="relative" ref={langRef}>
@@ -53,25 +41,11 @@ export default function LanguageDropdown() {
                 onClick={() => setLangOpen(!langOpen)}
                 aria-haspopup="listbox"
                 aria-expanded={langOpen}
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold cursor-pointer select-none transition
-        bg-white text-indigo-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-indigo-300 dark:hover:bg-gray-800"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold cursor-pointer bg-white text-indigo-900 dark:bg-gray-700 dark:text-indigo-300"
             >
-                <Image
-                    src={currentLang.flag}
-                    alt={currentLang.label}
-                    width={24}
-                    height={24}
-                    className="rounded-full aspect-square object-cover border border-white"
-                />
-
-                <span className="text-base font-normal">{currentLang.label}</span>
-                <svg
-                    className={`w-4 h-4 transform transition-transform duration-300 ${langOpen ? 'rotate-180' : 'rotate-0'}`}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    viewBox="0 0 24 24"
-                >
+                <Image src={selectedLang.flag} alt={selectedLang.label} width={24} height={24} className="rounded-full border border-white" />
+                <span>{selectedLang.label}</span>
+                <svg className={`w-4 h-4 transform transition-transform duration-300 ${langOpen ? 'rotate-180' : 'rotate-0'}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
@@ -79,33 +53,23 @@ export default function LanguageDropdown() {
             {langOpen && (
                 <ul
                     role="listbox"
-                    className="absolute right-0 mt-1 w-40 rounded-md shadow-lg font-semibold overflow-hidden transition
-          bg-white text-indigo-900 dark:bg-gray-800 dark:text-indigo-300"
+                    className="absolute right-0 mt-1 w-40 rounded-md shadow-lg bg-white text-indigo-900 dark:bg-gray-800 dark:text-indigo-300"
                 >
                     {languages.map(({ code, label, flag }) => (
                         <li
                             key={code}
                             role="option"
                             onClick={() => handleLanguageChange(code)}
-                            className={`cursor-pointer flex items-center gap-2 px-3 py-2 transition
-              ${currentLocale === code
-                                    ? 'bg-indigo-100 text-indigo-900 dark:bg-indigo-900 dark:text-white'
-                                    : 'hover:bg-indigo-100 dark:hover:bg-gray-700'
-                                }`}
-                            aria-selected={currentLocale === code}
+                            className={`cursor-pointer flex items-center gap-2 px-3 py-2
+                ${currentLang === code ? 'bg-indigo-100 text-indigo-900 dark:bg-indigo-900 dark:text-white' : 'hover:bg-indigo-100 dark:hover:bg-gray-700'}`}
+                            aria-selected={currentLang === code}
                         >
-                            <Image
-                                src={flag}
-                                alt={label}
-                                width={24}
-                                height={24}
-                                className="rounded-full aspect-square object-cover border border-white"
-                            />
-                            <span className="text-base font-normal">{label}</span>
+                            <Image src={flag} alt={label} width={24} height={24} className="rounded-full border border-white" />
+                            <span>{label}</span>
                         </li>
                     ))}
                 </ul>
             )}
         </div>
-    );
+    )
 }
