@@ -20,6 +20,7 @@ const languages = [
 export default function LanguageDropdown() {
     const [langOpen, setLangOpen] = useState(false);
     const langRef = useRef<HTMLDivElement>(null);
+    const [isNavigating, setIsNavigating] = useState(false)
 
     const router = useRouter();
     const pathname = usePathname();
@@ -37,12 +38,14 @@ export default function LanguageDropdown() {
     }, []);
 
     const handleLanguageChange = (code: string) => {
-        const segments = pathname.split('/');
-        segments[1] = code;
-        const newPath = segments.join('/') || '/';
-        router.push(newPath);
-        setLangOpen(false);
-    };
+        if (isNavigating || code === currentLocale) return
+        setIsNavigating(true)
+
+        const segments = pathname.split('/')
+        segments[1] = code
+        const newPath = segments.join('/') || '/'
+        router.push(newPath)
+    }
 
     return (
         <div className="relative" ref={langRef}>
@@ -50,16 +53,17 @@ export default function LanguageDropdown() {
                 onClick={() => setLangOpen(!langOpen)}
                 aria-haspopup="listbox"
                 aria-expanded={langOpen}
-                className="flex items-center gap-2 px-3 py-1 rounded-md font-semibold cursor-pointer select-none transition
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold cursor-pointer select-none transition
         bg-white text-indigo-900 hover:bg-gray-100 dark:bg-gray-700 dark:text-indigo-300 dark:hover:bg-gray-800"
             >
                 <Image
                     src={currentLang.flag}
                     alt={currentLang.label}
-                    width={20}
-                    height={20}
-                    className="rounded-full object-cover"
+                    width={24}
+                    height={24}
+                    className="rounded-full aspect-square object-cover border border-white"
                 />
+
                 <span className="text-base font-normal">{currentLang.label}</span>
                 <svg
                     className={`w-4 h-4 transform transition-transform duration-300 ${langOpen ? 'rotate-180' : 'rotate-0'}`}
@@ -95,7 +99,7 @@ export default function LanguageDropdown() {
                                 alt={label}
                                 width={24}
                                 height={24}
-                                className="rounded-full object-cover border border-white"
+                                className="rounded-full aspect-square object-cover border border-white"
                             />
                             <span className="text-base font-normal">{label}</span>
                         </li>
