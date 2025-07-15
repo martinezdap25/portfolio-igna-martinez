@@ -37,7 +37,7 @@ export default function Header({
 
     return (
         <header className="bg-indigo-600 dark:bg-gray-900 text-white">
-            <div className="max-w-7xl mx-auto px-4 lg:px-8 h-24 flex items-center justify-between relative">
+            <div className="max-w-7xl mx-auto px-4 h-24 flex items-center justify-between relative">
                 {/* Logo + Navbar en md */}
                 <div className="flex items-center gap-4 md:gap-8">
                     <Logo />
