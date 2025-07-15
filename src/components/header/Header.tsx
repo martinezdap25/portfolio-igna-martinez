@@ -6,6 +6,7 @@ import DarkModeToggle from './DarkModeToggle'
 import LanguageDropdown from './LanguageDropdown'
 import Logo from './Logo'
 import Navbar from './Navbar'
+import MobileMenu from './MobileMenu'
 
 export default function Header({
     lang,
@@ -16,12 +17,6 @@ export default function Header({
 }) {
     const [isOpen, setIsOpen] = useState(false)
     const [isAnimating, setIsAnimating] = useState(false)
-
-    const navLinks = [
-        { href: '#projects', key: 'projects' },
-        { href: '#about', key: 'about' },
-        { href: '#contact', key: 'contact' },
-    ] as const
 
     useEffect(() => {
         if (!isOpen && isAnimating) {
@@ -76,27 +71,12 @@ export default function Header({
             </div>
 
             {(isOpen || isAnimating) && (
-                <div
-                    className={`md:hidden w-full px-6 pb-6 transition-all duration-300 ${isOpen ? 'animate-slide-down' : 'animate-slide-up'
-                        } bg-white dark:bg-gray-900 border-t border-indigo-700 dark:border-gray-700`}
-                >
-                    <div className="flex justify-between items-center mt-4 mb-6">
-                        <LanguageDropdown currentLang={lang} menuOpen={isOpen} />
-                        <DarkModeToggle />
-                    </div>
-                    <nav className="flex flex-col gap-4 items-start">
-                        {navLinks.map(({ href, key }) => (
-                            <a
-                                key={href}
-                                href={href}
-                                onClick={handleToggleMenu}
-                                className="text-base font-medium text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors"
-                            >
-                                {dict.nav[key]}
-                            </a>
-                        ))}
-                    </nav>
-                </div>
+                <MobileMenu
+                    lang={lang}
+                    dict={dict.nav}
+                    isOpen={isOpen}
+                    onClose={() => setIsOpen(false)}
+                />
             )}
         </header>
     )
