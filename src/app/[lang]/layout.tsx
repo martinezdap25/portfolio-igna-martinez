@@ -14,13 +14,12 @@ export default async function RootLayout({
   children: ReactNode
   params: Promise<{ lang: 'en' | 'es' }>
 }) {
-
-  const { lang } = await params;
+  const { lang } = await params
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <body className="transition-colors duration-300">
-        <ThemeProvider>
+      <body>
+        <ThemeProvider attribute="class">
           <Header lang={lang} />
           {children}
         </ThemeProvider>

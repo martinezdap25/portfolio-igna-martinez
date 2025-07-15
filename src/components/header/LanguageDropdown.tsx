@@ -28,12 +28,18 @@ export default function LanguageDropdown({ currentLang }: { currentLang: string 
     const handleLanguageChange = (code: string) => {
         if (code === currentLang) return
 
-        document.documentElement.classList.add('no-transition')
+        // Aplicar clase temporalmente  
+        document.documentElement.classList.add('language-changing')
 
         const segments = pathname.split('/')
         segments[1] = code
         router.push(segments.join('/'))
         setLangOpen(false)
+
+        // Remover la clase después de la navegación  
+        setTimeout(() => {
+            document.documentElement.classList.remove('language-changing')
+        }, 100)
     }
 
     const selectedLang = languages.find(l => l.code === currentLang) || languages[0]

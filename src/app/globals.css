@@ -21,9 +21,19 @@
   }
 }
 
+/* Ayuda a evitar flash blanco al renderizar dark mode */
+html.dark body {
+  background-color: #0a0a0a;
+  color: #ededed;
+}
+
+/* Desactiva transiciones momentáneamente al cambiar idioma o tema */
 .no-transition *,
 .no-transition *::before,
-.no-transition *::after {
+.no-transition *::after,
+.language-changing *,
+.language-changing *::before,
+.language-changing *::after {
   transition: none !important;
 }
 
