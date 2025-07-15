@@ -7,18 +7,21 @@ export async function generateStaticParams() {
   return [{ lang: 'en' }, { lang: 'es' }]
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: ReactNode
-  params: { lang: 'en' | 'es' }
+  params: Promise<{ lang: 'en' | 'es' }>
 }) {
+
+  const { lang } = await params;
+
   return (
-    <html lang={params.lang} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body className="transition-colors duration-300">
         <ThemeProvider>
-          <Header lang={params.lang} />
+          <Header lang={lang} />
           {children}
         </ThemeProvider>
       </body>

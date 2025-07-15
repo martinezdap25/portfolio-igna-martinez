@@ -27,6 +27,9 @@ export default function LanguageDropdown({ currentLang }: { currentLang: string 
 
     const handleLanguageChange = (code: string) => {
         if (code === currentLang) return
+
+        document.documentElement.classList.add('no-transition')
+
         const segments = pathname.split('/')
         segments[1] = code
         router.push(segments.join('/'))
