@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { useTheme } from 'next-themes'
@@ -6,24 +5,21 @@ import { useEffect, useState } from 'react'
 import { TbSun, TbMoon } from 'react-icons/tb'
 
 export default function DarkModeToggle() {
-    const { theme, setTheme, resolvedTheme } = useTheme()
+    const { resolvedTheme, setTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
 
+    // Evitar problemas de hidración
     useEffect(() => {
         setMounted(true)
     }, [])
 
-    if (!mounted) return null // Evita problemas de hidratación
+    if (!mounted) return null
 
     const isDark = resolvedTheme === 'dark'
 
-    const toggleTheme = () => {
-        setTheme(isDark ? 'light' : 'dark')
-    }
-
     return (
         <button
-            onClick={toggleTheme}
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
             aria-label="Toggle Dark Mode"
             className={`relative w-16 h-8 rounded-full cursor-pointer focus:outline-none transition-colors duration-300
         ${isDark ? 'bg-gray-600 hover:bg-gray-700' : 'bg-gray-200 hover:bg-gray-300'}`}
