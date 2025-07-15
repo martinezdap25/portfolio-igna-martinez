@@ -28,18 +28,10 @@ export default function LanguageDropdown({ currentLang }: { currentLang: string 
     const handleLanguageChange = (code: string) => {
         if (code === currentLang) return
 
-        // Aplicar clase temporalmente  
-        document.documentElement.classList.add('language-changing')
-
         const segments = pathname.split('/')
         segments[1] = code
         router.push(segments.join('/'))
         setLangOpen(false)
-
-        // Remover la clase después de la navegación  
-        setTimeout(() => {
-            document.documentElement.classList.remove('language-changing')
-        }, 100)
     }
 
     const selectedLang = languages.find(l => l.code === currentLang) || languages[0]
@@ -52,10 +44,16 @@ export default function LanguageDropdown({ currentLang }: { currentLang: string 
                 aria-expanded={langOpen}
                 className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold cursor-pointer bg-white text-indigo-900 dark:bg-gray-700 dark:text-indigo-300"
             >
-                <Image src={selectedLang.flag} alt={selectedLang.label} width={24} height={24} className="rounded-full border border-white" />
+                <Image
+                    src={selectedLang.flag}
+                    alt={selectedLang.label}
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 object-cover rounded-full border border-gray-300 dark:border-gray-500"
+                />
                 <span>{selectedLang.label}</span>
                 <svg className={`w-4 h-4 transform transition-transform duration-300 ${langOpen ? 'rotate-180' : 'rotate-0'}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" className=" transition-all duration-300" />
                 </svg>
             </button>
 
@@ -73,7 +71,13 @@ export default function LanguageDropdown({ currentLang }: { currentLang: string 
                 ${currentLang === code ? 'bg-indigo-100 text-indigo-900 dark:bg-indigo-900 dark:text-white' : 'hover:bg-indigo-100 dark:hover:bg-gray-700'}`}
                             aria-selected={currentLang === code}
                         >
-                            <Image src={flag} alt={label} width={24} height={24} className="rounded-full border border-white" />
+                            <Image
+                                src={flag}
+                                alt={label}
+                                width={24}
+                                height={24}
+                                className="w-6 h-6 object-cover rounded-full border border-gray-300 dark:border-gray-500"
+                            />
                             <span>{label}</span>
                         </li>
                     ))}
