@@ -9,7 +9,7 @@ const languages = [
     { code: 'en', label: 'English', flag: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg' },
 ]
 
-export default function LanguageDropdown({ currentLang }: { currentLang: string }) {
+export default function LanguageDropdown({ currentLang, menuOpen = false }: { currentLang: string; menuOpen?: boolean }) {
     const [langOpen, setLangOpen] = useState(false)
     const langRef = useRef<HTMLDivElement>(null)
     const router = useRouter()
@@ -17,13 +17,16 @@ export default function LanguageDropdown({ currentLang }: { currentLang: string 
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
+            // Solo cierra dropdown si el menú móvil NO está abierto
+            if (menuOpen) return
+
             if (langRef.current && !langRef.current.contains(event.target as Node)) {
                 setLangOpen(false)
             }
         }
         document.addEventListener('mousedown', handleClickOutside)
         return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [])
+    }, [menuOpen])
 
     const handleLanguageChange = (code: string) => {
         if (code === currentLang) return
@@ -42,7 +45,7 @@ export default function LanguageDropdown({ currentLang }: { currentLang: string 
                 onClick={() => setLangOpen(!langOpen)}
                 aria-haspopup="listbox"
                 aria-expanded={langOpen}
-                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold cursor-pointer bg-white text-indigo-900 dark:bg-gray-700 dark:text-indigo-300"
+                className="flex items-center gap-2 px-3 py-2 rounded-md font-semibold cursor-pointer bg-indigo-100 text-indigo-900 dark:bg-gray-700 dark:text-indigo-300"
             >
                 <Image
                     src={selectedLang.flag}

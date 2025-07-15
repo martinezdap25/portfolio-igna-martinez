@@ -1,8 +1,8 @@
 'use client'
 
 const navLinks = [
-    { href: '#projects', key: 'projects' },
     { href: '#about', key: 'about' },
+    { href: '#projects', key: 'projects' },
     { href: '#contact', key: 'contact' },
 ] as const
 
