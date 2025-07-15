@@ -1,47 +1,38 @@
 import '../globals.css'
 import { ReactNode } from 'react'
 import Header from '@/components/header/Header'
+import { ThemeProvider } from '@/components/theme/ThemeProvider'
 
 export async function generateStaticParams() {
   return [{ lang: 'en' }, { lang: 'es' }]
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params,
 }: {
   children: ReactNode
   params: { lang: 'en' | 'es' }
 }) {
-  const { lang } = params
-
   return (
-    <html lang={lang} suppressHydrationWarning
-      className="no-transition"
-    >
-      <head>
+    <html lang={params.lang} suppressHydrationWarning>
+      <head />
+      <body className="no-transition">
+        <ThemeProvider>
+          <Header lang={params.lang} />
+          {children}
+        </ThemeProvider>
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              (function() {
-                let theme = localStorage.getItem('theme');
-                if (!theme) {
-                  theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  localStorage.setItem('theme', theme);
-                }
-                if (theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              })();
+              window.addEventListener('DOMContentLoaded', function () {
+                setTimeout(() => {
+                  document.documentElement.classList.remove('no-transition');
+                }, 300);
+              });
             `,
           }}
         />
-      </head>
-      <body>
-        <Header lang={lang} />
-        {children}
       </body>
     </html>
   )

@@ -1,29 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
+import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { TbSun, TbMoon } from 'react-icons/tb'
 
 export default function DarkModeToggle() {
-    const [isDark, setIsDark] = useState(false)
+    const { theme, setTheme, resolvedTheme } = useTheme()
+    const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
-        const theme = localStorage.getItem('theme')
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        const activeDark = theme === 'dark' || (!theme && prefersDark)
-        setIsDark(activeDark)
-        document.documentElement.classList.toggle('dark', activeDark)
+        setMounted(true)
     }, [])
 
+    if (!mounted) return null // Evita problemas de hidratación
+
+    const isDark = resolvedTheme === 'dark'
+
     const toggleTheme = () => {
-        const newDark = !isDark
-        setIsDark(newDark)
-        if (newDark) {
-            document.documentElement.classList.add('dark')
-            localStorage.setItem('theme', 'dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-            localStorage.setItem('theme', 'light')
-        }
+        setTheme(isDark ? 'light' : 'dark')
     }
 
     return (
