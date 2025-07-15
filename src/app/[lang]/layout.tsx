@@ -7,35 +7,20 @@ export async function generateStaticParams() {
   return [{ lang: 'en' }, { lang: 'es' }]
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params,
 }: {
   children: ReactNode
-  params: Promise<{ lang: 'en' | 'es' }>
+  params: { lang: 'en' | 'es' }
 }) {
-  const { lang } = await params
-
   return (
-    <html lang={lang} suppressHydrationWarning>
-      <head />
-      <body className="no-transition">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header lang={lang} />
+    <html lang={params.lang} suppressHydrationWarning>
+      <body className="transition-colors duration-300">
+        <ThemeProvider>
+          <Header lang={params.lang} />
           {children}
         </ThemeProvider>
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.addEventListener('DOMContentLoaded', function () {
-                setTimeout(() => {
-                  document.documentElement.classList.remove('no-transition');
-                }, 300);
-              });
-            `,
-          }}
-        />
       </body>
     </html>
   )
