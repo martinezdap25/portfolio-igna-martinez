@@ -4,6 +4,7 @@ import Header from '@/components/header/Header'
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { getDictionary } from '@/app/[lang]/dictionaries'
 import BitsBackgroundCanvas from '@/components/BitsBackgroundCanvas'
+import Footer from '@/components/footer/Footer'
 
 export async function generateStaticParams() {
   return [{ lang: 'en' }, { lang: 'es' }]
@@ -26,6 +27,7 @@ export default async function RootLayout({
           <Header lang={lang} dict={dict} />
           <BitsBackgroundCanvas />
           {children}
+          <Footer dictionary={dict}/>
         </ThemeProvider>
       </body>
     </html>

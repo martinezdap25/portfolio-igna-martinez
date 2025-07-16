@@ -3,5 +3,17 @@
     "projects": "Proyectos",
     "about": "Sobre mí",
     "contact": "Contacto"
+  },
+  "footer": {
+    "talk": "¿Querés charlar?",
+    "work": "¿Querés trabajar juntos?",
+    "work_desc": "Estoy abierto a colaborar en proyectos, ideas o simplemente para charlar sobre tecnología y desarrollo.",
+    "questions": "¿Tenés alguna consulta?",
+    "questions_desc": "No dudes en escribirme. Siempre respondo y me gusta conectar con personas nuevas.",
+    "email_placeholder": "Tu correo electrónico",
+    "send": "Enviar",
+    "thanks": "¡Gracias! Te estaré contactando pronto.",
+    "invalid_email": "Por favor, ingresa un email válido.",
+    "rights": "Todos los derechos reservados."
   }
 }
