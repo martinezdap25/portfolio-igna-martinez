@@ -17,9 +17,7 @@ export default function LanguageDropdown({ currentLang, menuOpen = false }: { cu
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            // Solo cierra dropdown si el menú móvil NO está abierto
             if (menuOpen) return
-
             if (langRef.current && !langRef.current.contains(event.target as Node)) {
                 setLangOpen(false)
             }
@@ -56,22 +54,24 @@ export default function LanguageDropdown({ currentLang, menuOpen = false }: { cu
                 />
                 <span>{selectedLang.label}</span>
                 <svg className={`w-4 h-4 transform transition-transform duration-300 ${langOpen ? 'rotate-180' : 'rotate-0'}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" className=" transition-all duration-300" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
 
             {langOpen && (
                 <ul
                     role="listbox"
-                    className="absolute right-0 mt-1 w-40 rounded-md shadow-lg bg-white text-indigo-900 dark:bg-gray-800 dark:text-indigo-300"
+                    className="absolute right-0 mt-1 w-40 rounded-xl shadow-lg bg-white text-indigo-900 dark:bg-gray-800 dark:text-indigo-300 border border-gray-200 dark:border-gray-600 overflow-hidden"
                 >
                     {languages.map(({ code, label, flag }) => (
                         <li
                             key={code}
                             role="option"
                             onClick={() => handleLanguageChange(code)}
-                            className={`cursor-pointer flex items-center gap-2 px-3 py-2
-                ${currentLang === code ? 'bg-indigo-100 text-indigo-900 dark:bg-indigo-900 dark:text-white' : 'hover:bg-indigo-100 dark:hover:bg-gray-700'}`}
+                            className={`cursor-pointer flex items-center gap-2 px-3 py-2 transition-colors ${currentLang === code
+                                    ? 'bg-indigo-100 text-indigo-900 dark:bg-indigo-900 dark:text-white'
+                                    : 'hover:bg-indigo-100 dark:hover:bg-gray-700 rounded-md'
+                                }`}
                             aria-selected={currentLang === code}
                         >
                             <Image

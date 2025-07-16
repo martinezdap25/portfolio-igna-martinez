@@ -2,7 +2,7 @@ export default function Page() {
   return (
     <div className="max-w-7xl mx-auto px-4">
       <main>
-        <div className="bg-white dark:bg-gray-800 rounded-lg px-6 py-8 ring shadow-xl ring-gray-900/5 mt-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-gray-800 rounded-lg px-6 py-8 ring shadow-md ring-gray-900/5 mt-4 transition-colors duration-300">
           <div>
             <span className="inline-flex items-center justify-center rounded-md bg-indigo-500 p-2 shadow-lg">
               <svg className="h-6 w-6 stroke-white"></svg>
