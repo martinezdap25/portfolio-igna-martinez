@@ -1,23 +1,19 @@
 import "../globals.css";
 import { ReactNode } from "react";
-import Header from "@/components/header/Header";
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import Footer from "@/components/footer/Footer";
-import IntroScreen from "@/components/theme/IntroScreen";
-import TechnologiesAnimation from "@/components/theme/TechnologiesAnimation";
+import ClientAppWrapper from "@/components/theme/ClientAppWrapper";
+import { ThemeProvider } from "next-themes";
+
+interface Props {
+  children: ReactNode;
+  params: Promise<{ lang: "en" | "es" }>; // params es Promise ahora
+}
 
 export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "es" }];
 }
 
-export default async function RootLayout({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: Promise<{ lang: "en" | "es" }>;
-}) {
+export default async function RootLayout({ children, params }: Props) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
 
@@ -25,11 +21,7 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class">
-          <IntroScreen dict={dict} />
-          <Header lang={lang} dict={dict} />
-          <TechnologiesAnimation withBackground={true} />
-          {children}
-          <Footer dictionary={dict} />
+        <ClientAppWrapper dict={dict}>{children}</ClientAppWrapper>
         </ThemeProvider>
       </body>
     </html>

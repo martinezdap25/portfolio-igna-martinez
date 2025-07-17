@@ -7,7 +7,7 @@ import GithubStats from "@/components/theme/GithunStats";
 import { Dictionary } from "@/types/directory";
 
 interface Props {
-  dict: Dictionary;
+    dict: Dictionary;
 }
 
 export default function AboutMe({ dict }: Props) {
@@ -17,10 +17,11 @@ export default function AboutMe({ dict }: Props) {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="bg-white dark:bg-gray-900 rounded-3xl shadow-md p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-start gap-10"
+                className="bg-white dark:bg-gray-900 rounded-3xl shadow-md p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-stretch gap-10"
             >
-                {/* Imagen + Stats */}
-                <div className="flex flex-col gap-4 sm:gap-12 items-center shrink-0 w-full max-w-[250px] mx-auto">
+                {/* Columna izquierda */}
+                <div className="flex flex-col justify-between items-center shrink-0 w-full max-w-[250px] mx-auto md:min-h-[450px]">
+                    {/* Imagen */}
                     <div className="relative w-[180px] h-[180px] rounded-full overflow-hidden shadow-lg border-2 border-indigo-600 dark:border-gray-700">
                         <Image
                             src="https://res.cloudinary.com/dsugc0qfa/image/upload/v1752710264/Imagen_de_WhatsApp_2025-06-07_a_las_01.09.22_6c4dfbd1_ojm05r.jpg"
@@ -31,12 +32,14 @@ export default function AboutMe({ dict }: Props) {
                             priority
                         />
                     </div>
-                    <div className="w-full">
+
+                    {/* Stats abajo */}
+                    <div className="w-full mt-6">
                         <GithubStats />
                     </div>
                 </div>
 
-                {/* Contenido principal */}
+                {/* Columna derecha */}
                 <div className="flex-1 flex flex-col justify-between w-full">
                     <div>
                         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
@@ -55,6 +58,7 @@ export default function AboutMe({ dict }: Props) {
                         </a>
                     </div>
 
+                    {/* Tags */}
                     <div className="mt-8 flex flex-wrap gap-3">
                         {dict.about.tags.map((text, index) => (
                             <motion.span
@@ -71,6 +75,7 @@ export default function AboutMe({ dict }: Props) {
 
                     <hr className="my-8 border-gray-300 dark:border-gray-700 w-full" />
 
+                    {/* Redes + certificado */}
                     <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end flex-wrap gap-4 w-full">
                         <div className="flex gap-6 text-gray-700 dark:text-gray-300 text-2xl mb-2 sm:mb-0 justify-center sm:justify-start w-full sm:w-auto">
                             <a href="https://github.com/tuusuario" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
