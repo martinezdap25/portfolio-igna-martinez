@@ -3,13 +3,12 @@ import AboutMe from "@/components/about-me/AboutMe";
 import { Dictionary } from "@/types/directory";
 
 interface Props {
-  params: {
-    lang: "en" | "es";
-  };
+  params: Promise<{ lang: "en" | "es" }>; // ahora es una promesa
 }
 
-export default async function Page(props: Props) {
-  const { lang } = props.params;
+export default async function Page({ params }: Props) {
+  const { lang } = await params; // ✅ acceso correcto ahora
+
   const dict: Dictionary = await getDictionary(lang);
 
   return (
