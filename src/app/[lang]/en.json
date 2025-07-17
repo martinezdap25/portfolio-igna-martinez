@@ -15,5 +15,9 @@
     "thanks": "Thanks! I'll be in touch soon.",
     "invalid_email": "Please enter a valid email.",
     "rights": "All rights reserved."
+  },
+  "intro": {
+    "desc": "Welcome! | Full-stack Web Developer",
+    "button": "Start"
   }
 }

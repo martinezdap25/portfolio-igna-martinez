@@ -15,5 +15,9 @@
     "thanks": "¡Gracias! Te estaré contactando pronto.",
     "invalid_email": "Por favor, ingresa un email válido.",
     "rights": "Todos los derechos reservados."
+  },
+  "intro": {
+    "desc": "¡Bienvenido! | Programador web Full-stack",
+    "button": "Comenzar"
   }
 }

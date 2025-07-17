@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import CircuitBoardAnimation from "./TechnologiesAnimation";
 
-export default function IntroScreen() {
-    const fullText = "Bienvenido! | Programador web Full-stack";
+export default function IntroScreen({ dict }: { dict: { intro: { desc: string; button: string } } }) {
+    const fullText = dict.intro.desc;
     const [displayedText, setDisplayedText] = useState("");
     const [index, setIndex] = useState(0);
-    const [hide, setHide] = useState(false); // controla salida
+    const [hide, setHide] = useState(false);
 
     useEffect(() => {
         if (index < fullText.length) {
@@ -19,7 +19,7 @@ export default function IntroScreen() {
             }, 50);
             return () => clearTimeout(timeout);
         }
-    }, [index]);
+    }, [index, fullText]);
 
     return (
         <AnimatePresence>
@@ -27,12 +27,13 @@ export default function IntroScreen() {
                 <motion.div
                     initial={{ y: 0 }}
                     animate={{ y: 0 }}
-                    exit={{ y: "-100%" }} // 👈 solo se desliza hacia arriba
+                    exit={{ y: "-100%" }}
                     transition={{ duration: 1, ease: "easeInOut" }}
                     className="fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center bg-gray-900 text-white px-6 text-center space-y-8"
                 >
                     <CircuitBoardAnimation />
-                    {/* Imagen con animación */}
+
+                    {/* Animated image */}
                     <motion.div
                         initial={{ rotateY: 180, opacity: 0, scale: 0.8 }}
                         animate={{ rotateY: 0, opacity: 1, scale: 1 }}
@@ -50,18 +51,15 @@ export default function IntroScreen() {
                         />
                     </motion.div>
 
-                    {/* Nombre */}
                     <h1 className="text-5xl md:text-7xl font-extrabold mb-4 text-white tracking-in-expand">
                         Ignacio Martínez
                     </h1>
 
-                    {/* Texto máquina de escribir */}
                     <p className="text-xl md:text-2xl text-gray-300 font-mono max-w-xl mx-auto">
                         {displayedText}
                         <span className="animate-pulse text-white">|</span>
                     </p>
 
-                    {/* Botón con hover */}
                     <motion.button
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -69,7 +67,7 @@ export default function IntroScreen() {
                         className="w-28 h-28 rounded-full bg-white text-gray-900 flex items-center justify-center cursor-pointer wobble-hor-bottom font-semibold text-sm md:text-lg shadow-md hover:bg-indigo-600 hover:text-white hover:shadow-xl transition-all duration-300"
                         onClick={() => setHide(true)}
                     >
-                        Comenzar
+                        {dict.intro.button}
                     </motion.button>
                 </motion.div>
             )}

@@ -25,9 +25,9 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class">
-          <IntroScreen />
+          <IntroScreen dict={dict}/>
             <Header lang={lang} dict={dict} />
-            <BitsBackgroundCanvas />
+            <BitsBackgroundCanvas/>
             {children}
             <Footer dictionary={dict} />
         </ThemeProvider>
