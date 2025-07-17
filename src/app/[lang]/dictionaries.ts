@@ -1,3 +1,4 @@
+import { Dictionary } from '@/types/directory'
 import 'server-only'
 
 const dictionaries = {
@@ -5,6 +6,6 @@ const dictionaries = {
   es: () => import('./es.json').then((mod) => mod.default),
 }
 
-export const getDictionary = async (locale: 'en' | 'es') => {
-  return dictionaries[locale]()
-}
+export const getDictionary = async (locale: 'en' | 'es'): Promise<Dictionary> => {
+  return dictionaries[locale]();
+};

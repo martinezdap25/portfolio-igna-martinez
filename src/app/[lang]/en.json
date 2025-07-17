@@ -23,5 +23,22 @@
       "Front-end Web Developer."
     ],
     "button": "Start"
+  },
+  "about": {
+    "title": "Hi! My name is",
+    "description": "I’m a Full-Stack developer with a strong focus on Frontend. I love building modern, intuitive, and functional digital experiences. I'm constantly learning and looking for new challenges to grow professionally.",
+    "cv": "Download CV",
+    "certificate": "View English Certificate | B2",
+    "tags": [
+      "Full-Stack",
+      "Frontend-oriented",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS",
+      "Node.js",
+      "Code enthusiast",
+      "Coffee lover ☕"
+    ]
   }
 }

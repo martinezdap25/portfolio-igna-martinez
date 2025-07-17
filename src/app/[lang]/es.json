@@ -23,5 +23,22 @@
       "Programador Web Front-end."
     ],
     "button": "Comenzar"
+  },
+  "about": {
+    "title": "Hola! Mi nombre es",
+    "description": "Soy un desarrollador Full-Stack con fuerte inclinación hacia el Frontend. Me apasiona crear experiencias digitales modernas, intuitivas y funcionales. Siempre estoy aprendiendo y buscando nuevos desafíos para crecer profesionalmente.",
+    "cv": "Descargar CV",
+    "certificate": "Ver certificado de inglés | B2",
+    "tags": [
+      "Full-Stack",
+      "Orientado al Frontend",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS",
+      "Node.js",
+      "Apasionado del código",
+      "Café lover ☕"
+    ]
   }
 }

@@ -1,14 +1,20 @@
-import AboutMe from "@/components/about-me/AboutMe"
+import { getDictionary } from "@/app/[lang]/dictionaries";
+import AboutMe from "@/components/about-me/AboutMe";
+import { Dictionary } from "@/types/directory";
 
-export default function Page() {
+interface Props {
+  params: {
+    lang: "en" | "es";
+  };
+}
+
+export default async function Page({ params: { lang } }: Props) {
+  const dict: Dictionary = await getDictionary(lang);
+
   return (
     <div className="max-w-7xl mx-auto px-4">
       <main>
-        <div>
-          
-          <AboutMe />
-
-        </div>
+        <AboutMe dict={dict} />
       </main>
     </div>
   );
