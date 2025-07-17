@@ -61,7 +61,11 @@ interface FloatingIcon {
     swayDelay: number
 }
 
-export default function TechnologiesAnimation() {
+interface TechnologiesAnimationProps {
+    withBackground?: boolean
+}
+
+export default function TechnologiesAnimation({ withBackground = false }: TechnologiesAnimationProps) {
     const [icons, setIcons] = useState<FloatingIcon[]>([])
 
     useEffect(() => {
@@ -70,8 +74,8 @@ export default function TechnologiesAnimation() {
             return {
                 ...tech,
                 left: Math.random() * 100,
-                delay: Math.random() * 20, // más separación aleatoria
-                size: 50 + Math.random() * 40, // tamaño base más grande
+                delay: Math.random() * 25,
+                size: 50 + Math.random() * 30,
                 duration: 12 + Math.random() * 10,
                 swayDuration: 3 + Math.random() * 3,
                 swayDistance: Math.random() < 0.5 ? 0 : 2 + Math.random() * 4,
@@ -84,14 +88,17 @@ export default function TechnologiesAnimation() {
     if (icons.length === 0) return null
 
     return (
-        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div
+            className={`fixed inset-0 -z-20 overflow-hidden pointer-events-none ${withBackground ? 'bg-white/10 dark:bg-gray-900/50 backdrop-blur-sm' : ''
+                }`}
+        >
             {icons.map((icon, i) => {
                 const Icon = icon.Icon
                 return (
                     <motion.div
                         key={i}
                         initial={{ y: '100vh', opacity: 0 }}
-                        animate={{ y: '-20vh', opacity: 0.25 }}
+                        animate={{ y: '-20vh', opacity: 0.3 }}
                         transition={{
                             duration: icon.duration,
                             delay: icon.delay,
@@ -108,13 +115,7 @@ export default function TechnologiesAnimation() {
                     >
                         <motion.div
                             animate={{
-                                x: [
-                                    0,
-                                    icon.swayDistance,
-                                    0,
-                                    -icon.swayDistance,
-                                    0,
-                                ],
+                                x: [0, icon.swayDistance, 0, -icon.swayDistance, 0],
                             }}
                             transition={{
                                 duration: icon.swayDuration,
@@ -123,11 +124,12 @@ export default function TechnologiesAnimation() {
                                 ease: 'easeInOut',
                                 delay: icon.swayDelay,
                             }}
-                            className="w-full h-full rounded-xl flex items-center justify-center p-2 
-                                bg-white/20 dark:bg-white/10 
-                                backdrop-blur-md shadow-md"
+                            className="w-full h-full rounded-xl flex items-center justify-center p-2
+                backdrop-blur-md shadow-md
+                opacity-95
+                text-gray-800 dark:text-white"
                         >
-                            <Icon className="w-full h-full text-gray-800 dark:text-white opacity-80" />
+                            <Icon className="w-full h-full" />
                         </motion.div>
                     </motion.div>
                 )

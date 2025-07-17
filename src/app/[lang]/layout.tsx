@@ -23,13 +23,13 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <body className='bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white'>
+      <body>
         <ThemeProvider attribute="class">
-          <IntroScreen dict={dict}/>
-            <Header lang={lang} dict={dict} />
-            <TechnologiesAnimation />
-            {children}
-            <Footer dictionary={dict} />
+          <IntroScreen dict={dict} />
+          <Header lang={lang} dict={dict} />
+          <TechnologiesAnimation withBackground={true} />
+          {children}
+          <Footer dictionary={dict} />
         </ThemeProvider>
       </body>
     </html>
