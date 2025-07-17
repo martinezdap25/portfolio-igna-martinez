@@ -29,9 +29,21 @@ export default function IntroScreen({ dict }: IntroScreenProps) {
     useEffect(() => {
         const introSeen = localStorage.getItem("introSeen");
         if (!introSeen) {
-            setHide(false); // solo lo mostramos si no fue visto
+            setHide(false);
         }
     }, []);
+
+    useEffect(() => {
+        if (!hide) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [hide]);
 
     const handleHideIntro = () => {
         if (typeof window !== "undefined") {
