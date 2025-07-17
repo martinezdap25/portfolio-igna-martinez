@@ -8,7 +8,8 @@ interface Props {
   };
 }
 
-export default async function Page({ params: { lang } }: Props) {
+export default async function Page(props: Props) {
+  const { lang } = props.params;
   const dict: Dictionary = await getDictionary(lang);
 
   return (
