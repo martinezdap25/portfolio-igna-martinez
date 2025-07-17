@@ -53,7 +53,7 @@ interface FloatingBox {
     swayDelay: number
 }
 
-export default function CircuitBoardAnimation() {
+export default function TechnologiesAnimation() {
     const [boxes, setBoxes] = useState<FloatingBox[]>([])
 
     useEffect(() => {

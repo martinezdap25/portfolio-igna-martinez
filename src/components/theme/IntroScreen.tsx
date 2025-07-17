@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import CircuitBoardAnimation from "./TechnologiesAnimation";
+import TechnologiesAnimation from "./TechnologiesAnimation";
 
 export default function IntroScreen({ dict }: { dict: { intro: { desc: string; button: string } } }) {
     const fullText = dict.intro.desc;
@@ -29,9 +29,9 @@ export default function IntroScreen({ dict }: { dict: { intro: { desc: string; b
                     animate={{ y: 0 }}
                     exit={{ y: "-100%" }}
                     transition={{ duration: 1, ease: "easeInOut" }}
-                    className="fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center bg-gray-900 text-white px-6 text-center space-y-8"
+                    className="fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white px-6 text-center space-y-8"
                 >
-                    <CircuitBoardAnimation />
+                    <TechnologiesAnimation />
 
                     {/* Animated image */}
                     <motion.div
@@ -51,20 +51,20 @@ export default function IntroScreen({ dict }: { dict: { intro: { desc: string; b
                         />
                     </motion.div>
 
-                    <h1 className="text-5xl md:text-7xl font-extrabold mb-4 text-white tracking-in-expand">
+                    <h1 className="text-5xl md:text-7xl font-extrabold mb-4 text-gray-900 dark:text-white tracking-in-expand">
                         Ignacio Martínez
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-gray-300 font-mono max-w-xl mx-auto">
+                    <p className="text-xl md:text-2xl text-gray-500 font-mono max-w-xl mx-auto">
                         {displayedText}
-                        <span className="animate-pulse text-white">|</span>
+                        <span className="animate-pulse text-gray-500 dark:text-white">|</span>
                     </p>
 
                     <motion.button
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, ease: "easeOut", delay: 2 }}
-                        className="w-28 h-28 rounded-full bg-white text-gray-900 flex items-center justify-center cursor-pointer wobble-hor-bottom font-semibold text-sm md:text-lg shadow-md hover:bg-indigo-600 hover:text-white hover:shadow-xl transition-all duration-300"
+                        className="w-28 h-28 rounded-full bg-indigo-600 dark:bg-white text-white dark:text-gray-900 flex items-center justify-center cursor-pointer wobble-hor-bottom font-semibold text-sm md:text-lg shadow-md dark:hover:bg-indigo-600 hover:bg-indigo-700 hover:text-white hover:shadow-xl transition-all duration-300"
                         onClick={() => setHide(true)}
                     >
                         {dict.intro.button}
