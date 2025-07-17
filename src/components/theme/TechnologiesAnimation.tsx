@@ -19,6 +19,10 @@ import {
     SiDocker,
     SiGit,
     SiGithub,
+    SiPhp,
+    SiLaravel,
+    SiVite,
+    SiLivewire,
 } from 'react-icons/si'
 import type { IconType } from 'react-icons'
 
@@ -39,9 +43,13 @@ const techs = [
     { name: 'Docker', Icon: SiDocker },
     { name: 'Git', Icon: SiGit },
     { name: 'GitHub', Icon: SiGithub },
+    { name: 'PHP', Icon: SiPhp },
+    { name: 'Laravel', Icon: SiLaravel },
+    { name: 'Vite', Icon: SiVite },
+    { name: 'Livewire', Icon: SiLivewire },
 ]
 
-interface FloatingBox {
+interface FloatingIcon {
     name: string
     Icon: IconType
     left: number
@@ -54,71 +62,72 @@ interface FloatingBox {
 }
 
 export default function TechnologiesAnimation() {
-    const [boxes, setBoxes] = useState<FloatingBox[]>([])
+    const [icons, setIcons] = useState<FloatingIcon[]>([])
 
     useEffect(() => {
-        const newBoxes: FloatingBox[] = Array.from({ length: 15 }, () => {
+        const newIcons: FloatingIcon[] = Array.from({ length: 15 }, () => {
             const tech = techs[Math.floor(Math.random() * techs.length)]
             return {
                 ...tech,
                 left: Math.random() * 100,
-                delay: Math.random() * 5,
-                size: 40 + Math.random() * 30,
-                duration: 10 + Math.random() * 10,
+                delay: Math.random() * 20, // más separación aleatoria
+                size: 50 + Math.random() * 40, // tamaño base más grande
+                duration: 12 + Math.random() * 10,
                 swayDuration: 3 + Math.random() * 3,
-                // swayDistance va de 0 a 6px para variar intensidad, algunas sin movimiento horizontal
                 swayDistance: Math.random() < 0.5 ? 0 : 2 + Math.random() * 4,
                 swayDelay: Math.random() * 5,
             }
         })
-        setBoxes(newBoxes)
+        setIcons(newIcons)
     }, [])
 
-    if (boxes.length === 0) return null
+    if (icons.length === 0) return null
 
     return (
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-            {boxes.map((box, i) => {
-                const Icon = box.Icon
+            {icons.map((icon, i) => {
+                const Icon = icon.Icon
                 return (
                     <motion.div
                         key={i}
                         initial={{ y: '100vh', opacity: 0 }}
-                        animate={{ y: '-20vh', opacity: 0.2 }}
+                        animate={{ y: '-20vh', opacity: 0.25 }}
                         transition={{
-                            duration: box.duration,
-                            delay: box.delay,
+                            duration: icon.duration,
+                            delay: icon.delay,
                             repeat: Infinity,
                             repeatType: 'loop',
                             ease: 'linear',
                         }}
                         className="absolute"
                         style={{
-                            left: `${box.left}%`,
-                            width: box.size,
-                            height: box.size,
+                            left: `${icon.left}%`,
+                            width: icon.size,
+                            height: icon.size,
                         }}
                     >
                         <motion.div
                             animate={{
                                 x: [
                                     0,
-                                    box.swayDistance,
+                                    icon.swayDistance,
                                     0,
-                                    -box.swayDistance,
+                                    -icon.swayDistance,
                                     0,
                                 ],
                             }}
                             transition={{
-                                duration: box.swayDuration,
+                                duration: icon.swayDuration,
                                 repeat: Infinity,
                                 repeatType: 'loop',
                                 ease: 'easeInOut',
-                                delay: box.swayDelay,
+                                delay: icon.swayDelay,
                             }}
-                            className="w-full h-full bg-white/5 dark:bg-gray-800/5 backdrop-blur-sm rounded-lg flex items-center justify-center p-2"
+                            className="w-full h-full rounded-xl flex items-center justify-center p-2 
+                                bg-white/20 dark:bg-white/10 
+                                backdrop-blur-md shadow-md"
                         >
-                            <Icon className="w-full h-full opacity-60" />
+                            <Icon className="w-full h-full text-gray-800 dark:text-white opacity-80" />
                         </motion.div>
                     </motion.div>
                 )

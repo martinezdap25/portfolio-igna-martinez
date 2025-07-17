@@ -17,7 +17,11 @@
     "rights": "All rights reserved."
   },
   "intro": {
-    "desc": "Welcome! | Full-stack Web Developer",
+    "welcome": "Welcome!",
+    "roles": [
+      "Full-stack Web Developer.",
+      "Front-end Web Developer."
+    ],
     "button": "Start"
   }
 }

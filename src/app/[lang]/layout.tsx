@@ -3,9 +3,9 @@ import { ReactNode } from "react";
 import Header from "@/components/header/Header";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import BitsBackgroundCanvas from "@/components/BitsBackgroundCanvas";
 import Footer from "@/components/footer/Footer";
 import IntroScreen from "@/components/theme/IntroScreen";
+import TechnologiesAnimation from "@/components/theme/TechnologiesAnimation";
 
 export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "es" }];
@@ -23,11 +23,11 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <body>
+      <body className='bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white'>
         <ThemeProvider attribute="class">
           <IntroScreen dict={dict}/>
             <Header lang={lang} dict={dict} />
-            <BitsBackgroundCanvas/>
+            <TechnologiesAnimation />
             {children}
             <Footer dictionary={dict} />
         </ThemeProvider>
