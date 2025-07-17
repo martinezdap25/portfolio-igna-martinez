@@ -74,3 +74,129 @@ body {
 .animate-slide-up {
   animation: slide-up 0.25s ease-in forwards;
 }
+
+@-webkit-keyframes wobble-hor-bottom {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+    transform: translateX(-30px) rotate(-6deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+    transform: translateX(15px) rotate(6deg);
+  }
+
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+    transform: translateX(9px) rotate(2.4deg);
+  }
+
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
+@keyframes wobble-hor-bottom {
+
+  0%,
+  26.67%,
+  100% {
+    transform: translateX(0) rotate(0);
+    transform-origin: 50% 50%;
+  }
+
+  15% {
+    transform: translateX(-30px) rotate(-6deg);
+  }
+
+  30% {
+    transform: translateX(15px) rotate(6deg);
+  }
+
+  45% {
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+
+  60% {
+    transform: translateX(9px) rotate(2.4deg);
+  }
+
+  75% {
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
+.wobble-hor-bottom {
+  animation: wobble-hor-bottom 3s ease-in-out infinite;
+}
+
+/* Animacion de letras */
+.tracking-in-expand {
+  animation: tracking-in-expand 1.3s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+    transform: scaleY(1.05); /* levemente más alto para dar dinamismo */
+  }
+  30% {
+    opacity: 0.5;
+  }
+  60% {
+    transform: scaleY(1);
+  }
+  100% {
+    letter-spacing: normal;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation-name: slide-up;
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fade-in;
+  animation-fill-mode: both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
