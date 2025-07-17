@@ -89,7 +89,7 @@ export default function TechnologiesAnimation({ withBackground = false }: Techno
 
     return (
         <div
-            className={`fixed inset-0 -z-20 overflow-hidden pointer-events-none ${withBackground ? 'bg-white/10 dark:bg-gray-900/50 backdrop-blur-sm' : ''
+            className={`fixed inset-0 -z-20 overflow-hidden pointer-events-none ${withBackground ? 'bg-gray-100 dark:bg-gray-900/50 backdrop-blur-sm' : ''
                 }`}
         >
             {icons.map((icon, i) => {
@@ -125,7 +125,7 @@ export default function TechnologiesAnimation({ withBackground = false }: Techno
                                 delay: icon.swayDelay,
                             }}
                             className="w-full h-full rounded-xl flex items-center justify-center p-2
-                backdrop-blur-md shadow-md
+                backdrop-blur-md
                 opacity-95
                 text-gray-800 dark:text-white"
                         >

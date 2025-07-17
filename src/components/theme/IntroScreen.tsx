@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import TechnologiesAnimation from "./TechnologiesAnimation";
@@ -17,7 +17,7 @@ interface IntroScreenProps {
 }
 
 export default function IntroScreen({ dict }: IntroScreenProps) {
-    const [hide, setHide] = useState(false);
+    const [hide, setHide] = useState(true); // por defecto oculto
 
     const text = useTypedText({
         texts: dict.intro.roles,
@@ -25,6 +25,21 @@ export default function IntroScreen({ dict }: IntroScreenProps) {
         pauseDuration: 2000,
         deletingSpeed: 40,
     });
+
+    useEffect(() => {
+        const introSeen = localStorage.getItem("introSeen");
+        if (!introSeen) {
+            setHide(false); // solo lo mostramos si no fue visto
+        }
+    }, []);
+
+    const handleHideIntro = () => {
+        if (typeof window !== "undefined") {
+            localStorage.setItem("introSeen", "true");
+            localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+        }
+        setHide(true);
+    };
 
     return (
         <AnimatePresence>
@@ -35,7 +50,7 @@ export default function IntroScreen({ dict }: IntroScreenProps) {
                     exit={{ y: "-100%" }}
                     transition={{ duration: 1, ease: "easeInOut" }}
                     className="fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center 
-            bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white px-6 text-center space-y-8"
+                    bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white px-6 text-center space-y-8"
                 >
                     <TechnologiesAnimation />
 
@@ -61,7 +76,7 @@ export default function IntroScreen({ dict }: IntroScreenProps) {
                     </h1>
 
                     <p className="text-xl md:text-2xl text-gray-500 font-mono max-w-xl mx-auto">
-                        { dict.intro.welcome } | {text}
+                        {dict.intro.welcome} | {text}
                         <span className="animate-pulse text-gray-500 dark:text-white">|</span>
                     </p>
 
@@ -70,12 +85,7 @@ export default function IntroScreen({ dict }: IntroScreenProps) {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, ease: "easeOut", delay: 2 }}
                         className="w-28 h-28 rounded-full bg-indigo-600 dark:bg-white text-white dark:text-gray-900 flex items-center justify-center cursor-pointer wobble-hor-bottom font-semibold text-sm md:text-lg shadow-md dark:hover:bg-indigo-600 hover:bg-indigo-700 hover:text-white hover:shadow-xl transition-all duration-300"
-                        onClick={() => {
-                            if (typeof window !== "undefined") {
-                                localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
-                            }
-                            setHide(true);
-                        }}
+                        onClick={handleHideIntro}
                     >
                         {dict.intro.button}
                     </motion.button>
