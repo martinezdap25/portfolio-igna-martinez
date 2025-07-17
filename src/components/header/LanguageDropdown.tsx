@@ -38,7 +38,7 @@ export default function LanguageDropdown({ currentLang, menuOpen = false }: { cu
     const selectedLang = languages.find(l => l.code === currentLang) || languages[0]
 
     return (
-        <div className="relative" ref={langRef}>
+        <div className="sticky top-0 z-10" ref={langRef}>
             <button
                 onClick={() => setLangOpen(!langOpen)}
                 aria-haspopup="listbox"

@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import DarkModeToggle from './DarkModeToggle'
-import LanguageDropdown from './LanguageDropdown'
+import DarkModeToggle from "./DarkModeToggle";
+import LanguageDropdown from "./LanguageDropdown";
 
 const navLinks = [
-    { href: '#projects', key: 'projects' },
-    { href: '#about', key: 'about' },
-    { href: '#contact', key: 'contact' },
-] as const
+    { href: "#projects", key: "projects" },
+    { href: "#about", key: "about" },
+    { href: "#contact", key: "contact" },
+] as const;
 
-type NavKey = typeof navLinks[number]['key']
-type NavDict = Record<NavKey, string>
+type NavKey = typeof navLinks[number]["key"];
+type NavDict = Record<NavKey, string>;
 
 export default function MobileMenu({
     lang,
@@ -18,19 +18,19 @@ export default function MobileMenu({
     isOpen,
     onClose,
 }: {
-    lang: string
-    dict: NavDict
-    isOpen: boolean
-    onClose: () => void
+    lang: string;
+    dict: NavDict;
+    isOpen: boolean;
+    onClose: () => void;
 }) {
     return (
         <div
-            className={`md:hidden w-full px-6 pb-6 transition-all duration-300 ${isOpen ? 'animate-slide-down' : 'animate-slide-up'
-                } bg-white dark:bg-gray-900 border-t border-indigo-700 dark:border-gray-700`}
+            className={`md:hidden w-full px-6 pb-6 bg-white dark:bg-gray-900 border-t border-indigo-700 dark:border-gray-700 mobile-menu ${isOpen ? "open" : ""
+                }`}
         >
             <div className="flex justify-between items-center mt-4 mb-6">
-                <LanguageDropdown currentLang={lang} />
                 <DarkModeToggle />
+                <LanguageDropdown currentLang={lang} />
             </div>
             <nav className="flex flex-col gap-4 items-start">
                 {navLinks.map(({ href, key }) => (
@@ -45,5 +45,5 @@ export default function MobileMenu({
                 ))}
             </nav>
         </div>
-    )
+    );
 }
