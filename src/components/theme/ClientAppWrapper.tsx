@@ -19,7 +19,7 @@ export default function ClientAppWrapper({ dict, children }: Props) {
     const [showIntro, setShowIntro] = useState(false);
 
     const pathname = usePathname();
-    const lang = pathname.split("/")[1]; // 'es' o 'en'
+    const lang = pathname?.split("/")[1] || "es";
 
     useEffect(() => {
         const timer = setTimeout(() => {

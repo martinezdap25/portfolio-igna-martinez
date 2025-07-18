@@ -27,13 +27,13 @@ export default function LanguageDropdown({ currentLang, menuOpen = false }: { cu
     }, [menuOpen])
 
     const handleLanguageChange = (code: string) => {
-        if (code === currentLang) return
+        if (code === currentLang || !pathname) return;
 
-        const segments = pathname.split('/')
-        segments[1] = code
-        router.push(segments.join('/'))
-        setLangOpen(false)
-    }
+        const segments = pathname.split('/');
+        segments[1] = code;
+        router.push(segments.join('/'));
+        setLangOpen(false);
+    };
 
     const selectedLang = languages.find(l => l.code === currentLang) || languages[0]
 
@@ -69,8 +69,8 @@ export default function LanguageDropdown({ currentLang, menuOpen = false }: { cu
                             role="option"
                             onClick={() => handleLanguageChange(code)}
                             className={`cursor-pointer flex items-center gap-2 px-3 py-2 transition-colors ${currentLang === code
-                                    ? 'bg-indigo-100 text-indigo-900 dark:bg-indigo-900 dark:text-white'
-                                    : 'hover:bg-indigo-100 dark:hover:bg-gray-700 rounded-md'
+                                ? 'bg-indigo-100 text-indigo-900 dark:bg-indigo-900 dark:text-white'
+                                : 'hover:bg-indigo-100 dark:hover:bg-gray-700 rounded-md'
                                 }`}
                             aria-selected={currentLang === code}
                         >
