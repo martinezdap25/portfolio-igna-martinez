@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { Project } from '@/types/project';
+import ImageCarousel from '../ui/ImageCarousel';
 
 interface Props {
     project: Project;
@@ -14,18 +14,20 @@ export default function ProjectCard({ project }: Props) {
 
     return (
         <motion.div
-            className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-800"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-300 dark:border-gray-800 h-full"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
         >
             {mainImage && (
-                <div className="relative w-full h-48 md:h-56 lg:h-64">
-                    <Image
-                        src={mainImage.url}
-                        alt={mainImage.alt}
-                        fill
-                        className="object-cover"
+                <div className="rounded-t-lg border-b-2 border-indigo-500 bg-white dark:bg-zinc-900 overflow-hidden">
+                    <ImageCarousel
+                        images={project.images.map((img) => ({
+                            url: img.url,
+                            alt: img.alt || project.title,
+                        }))}
+                        heightClass="h-56"
+                        objectPosition="top"
                     />
                 </div>
             )}

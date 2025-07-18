@@ -28,7 +28,7 @@ export default function ProjectGrid() {
                     transition={{ duration: 0.3 }}
                 />
                 <motion.p
-                    className="text-lg text-gray-600"
+                    className="text-lg text-gray-600 dark:text-gray-300"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
@@ -50,14 +50,27 @@ export default function ProjectGrid() {
     }
 
     return (
-        <div className="relative z-10">
-            <div className="backdrop-blur-md bg-gray-100/5 border border-gray-200/20 shadow-lg rounded-2xl p-6">
+        <div className="relative z-10 space-y-6">
+            {/* Fondo translúcido con tarjetas */}
+            <div className="backdrop-blur-sm bg-black/10 dark:bg-gray-600/20 border border-gray-300/20 dark:border-gray-700/20 shadow-md rounded-2xl p-6">
+
+                {/* Título */}
+                <motion.h2
+                    className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-4"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    Proyectos destacados
+                </motion.h2>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {projects.map((proj, index) => (
                         <motion.div
                             key={proj._id}
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            className="h-full"
+                            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
                             transition={{ duration: 0.4, delay: index * 0.1 }}
                         >
                             <ProjectCard project={proj} />
