@@ -17,7 +17,9 @@ export default async function Page({ params }: Props) {
       <main>
         <AboutMe dict={dict} />
 
-        <ProjectsGrid />
+        <section className="mb-8">
+          <ProjectsGrid />
+        </section>
       </main>
     </div>
   );

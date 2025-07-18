@@ -29,7 +29,7 @@ export default function AboutMe({ dict }: Props) {
 
           <AboutTags tags={dict.about.tags} />
 
-          <hr className="border-gray-300 dark:border-gray-700 w-full" />
+          <hr className="border-gray-300 dark:border-gray-700 w-full my-8 lg:my-0" />
 
           <AboutFooter dict={dict} />
         </div>

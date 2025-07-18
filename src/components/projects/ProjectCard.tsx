@@ -14,7 +14,7 @@ export default function ProjectCard({ project }: Props) {
 
     return (
         <motion.div
-            className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col"
+            className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col border border-gray-300 dark:border-gray-800"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -31,11 +31,11 @@ export default function ProjectCard({ project }: Props) {
             )}
 
             <div className="p-4 flex flex-col gap-2 flex-grow">
-                <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                     {project.title}
                 </h3>
                 {project.shortDescription && (
-                    <p className="text-sm text-zinc-600 dark:text-zinc-300">
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
                         {project.shortDescription}
                     </p>
                 )}
@@ -43,7 +43,7 @@ export default function ProjectCard({ project }: Props) {
                     {project.technologies?.map((tech, index) => (
                         <span
                             key={index}
-                            className="bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100 text-xs px-2 py-1 rounded-full"
+                            className="bg-indigo-500 text-white text-xs px-2 py-1 rounded-full"
                         >
                             {tech}
                         </span>
