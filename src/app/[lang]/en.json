@@ -18,10 +18,7 @@
   },
   "intro": {
     "welcome": "Welcome!",
-    "roles": [
-      "Full-stack Web Developer.",
-      "Front-end Web Developer."
-    ],
+    "roles": ["Full-stack Web Developer.", "Front-end Web Developer."],
     "button": "Start"
   },
   "about": {
@@ -41,5 +38,8 @@
       "Code enthusiast",
       "Coffee lover ☕"
     ]
+  },
+  "projects": {
+    "seeMoreDetails": "See more details →"
   }
 }

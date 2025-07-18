@@ -18,10 +18,7 @@
   },
   "intro": {
     "welcome": "Bienvenido!",
-    "roles": [
-      "Programador Web Full-stack.",
-      "Programador Web Front-end."
-    ],
+    "roles": ["Programador Web Full-stack.", "Programador Web Front-end."],
     "button": "Comenzar"
   },
   "about": {
@@ -41,5 +38,8 @@
       "Apasionado del código",
       "Café lover ☕"
     ]
+  },
+  "projects": {
+    "seeMoreDetails": "Ver más detalles →"
   }
 }

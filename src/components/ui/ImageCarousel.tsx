@@ -94,7 +94,7 @@ export default function ImageCarousel({
                     </button>
 
                     {/* Indicador de posición */}
-                    <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded-md backdrop-blur-sm">
+                    <div className="absolute bottom-2 right-4 bg-black/50 text-white text-xs px-2 py-0.5 rounded-md backdrop-blur-sm">
                         {currentIndex + 1} / {images.length}
                     </div>
                 </>
