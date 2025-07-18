@@ -26,6 +26,7 @@ export interface Dictionary {
         description: string;
         cv: string;
         certificate: string;
+        certificateTitle: string;
         tags: string[];
     };
 }
