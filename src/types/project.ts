@@ -3,16 +3,21 @@ export interface LocalizedText {
   en: string;
 }
 
+export interface LocalizedStringArray {
+  es: string[];
+  en: string[];
+}
+
 export interface Project {
   _id: string;
   title: LocalizedText;
   description: LocalizedText;
   shortDescription?: Partial<LocalizedText>;
-  features: string[];
-  challenges: string[];
-  learnings: string[];
-  role?: string;
-  duration?: string;
+  features: LocalizedStringArray;
+  challenges: LocalizedStringArray;
+  learnings: LocalizedStringArray;
+  role?: LocalizedText;
+  duration?: LocalizedText;
   technologies: string[];
   category: string;
   status: string;
