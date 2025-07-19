@@ -4,9 +4,9 @@ import DarkModeToggle from "./DarkModeToggle";
 import LanguageDropdown from "./LanguageDropdown";
 
 const navLinks = [
-    { href: "#projects", key: "projects" },
-    { href: "#about", key: "about" },
-    { href: "#contact", key: "contact" },
+  { href: "/", key: "inicio" },
+  { href: "/projects", key: "projects" },
+  { href: "#contact", key: "contact" },
 ] as const;
 
 type NavKey = typeof navLinks[number]["key"];

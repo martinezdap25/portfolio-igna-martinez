@@ -13,7 +13,7 @@ export default function Header({
     dict,
 }: {
     lang: string
-    dict: { nav: { projects: string; about: string; contact: string } }
+    dict: { nav: { projects: string; inicio: string; contact: string } }
 }) {
     const [isOpen, setIsOpen] = useState(false)
     const [isAnimating, setIsAnimating] = useState(false)

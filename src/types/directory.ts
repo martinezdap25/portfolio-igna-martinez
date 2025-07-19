@@ -1,5 +1,6 @@
 export interface Dictionary {
   nav: {
+    inicio: string;
     projects: string;
     about: string;
     contact: string;

@@ -1,7 +1,7 @@
 {
   "nav": {
+    "inicio": "Home",
     "projects": "Projects",
-    "about": "About me",
     "contact": "Contact"
   },
   "footer": {

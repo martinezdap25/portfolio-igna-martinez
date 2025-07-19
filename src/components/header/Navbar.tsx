@@ -1,10 +1,10 @@
 'use client'
 
 const navLinks = [
-    { href: '#about', key: 'about' },
-    { href: '#projects', key: 'projects' },
-    { href: '#contact', key: 'contact' },
-] as const
+  { href: "/", key: "inicio" },
+  { href: "/projects", key: "projects" },
+  { href: "#contact", key: "contact" },
+] as const;
 
 type NavKey = typeof navLinks[number]['key']
 type NavDict = Record<NavKey, string>
