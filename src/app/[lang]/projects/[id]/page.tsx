@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { fetchProjectById } from "@/services/projectsService";
 import ImageCarousel from "@/components/ui/ImageCarousel";
 import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import InfoCard from "@/components/projects/InfoCard";
+import NotFound from "@/components/ui/NotFound";
 
 interface Props {
   params: Promise<{ id: string; lang: "es" | "en" }>;
@@ -11,7 +13,14 @@ interface Props {
 export default async function ProjectDetailPage({ params }: Props) {
   const { id, lang } = await params;
 
-  const project = await fetchProjectById(id);
+  let project
+
+  try {
+    project = await fetchProjectById(id);
+  } catch (error) {
+    return <NotFound />
+  }
+
   if (!project) return <p>Proyecto no encontrado</p>;
 
   return (
