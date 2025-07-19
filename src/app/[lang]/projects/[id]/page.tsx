@@ -7,15 +7,16 @@ import { getDictionary } from "@/app/[lang]/dictionaries";
 import { fetchProjectById } from "@/services/projectsService";
 import Image from "next/image";
 
-interface Props {
+type PageProps = {
     params: {
         lang: "en" | "es";
         id: string;
     };
-}
+    searchParams?: { [key: string]: string | string[] | undefined };
+};
 
-export default async function ProjectPage({ params }: Props) {
-    const { lang, id } = await params;  // <--- await aquí para Next 15+
+export default async function ProjectPage({ params }: PageProps) {
+    const { lang, id } = await params;
 
     const dict: Dictionary = await getDictionary(lang);
 
