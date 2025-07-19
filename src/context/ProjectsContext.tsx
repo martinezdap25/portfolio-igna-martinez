@@ -1,16 +1,9 @@
-// context/ProjectsContext.tsx
+// src/context/ProjectsContext.tsx
 "use client";
 
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { fetchProjects } from "@/services/projectsService";
-
-type Project = {
-    _id: string;
-    title: string;
-    description: string;
-    url?: string;
-    technologies: string[];
-};
+import { Project } from "@/types/project";
 
 interface ProjectsContextType {
     projects: Project[] | null;
@@ -26,7 +19,13 @@ export const ProjectsContext = createContext<ProjectsContextType>({
     reloadProjects: () => { },
 });
 
-export function ProjectsProvider({ children }: { children: ReactNode }) {
+export function ProjectsProvider({
+    children,
+    lang,
+}: {
+    children: ReactNode;
+    lang: "en" | "es";
+}) {
     const [projects, setProjects] = useState<Project[] | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -35,7 +34,7 @@ export function ProjectsProvider({ children }: { children: ReactNode }) {
         setIsLoading(true);
         setError(null);
         try {
-            const data = await fetchProjects();
+            const data = await fetchProjects(lang);
             setProjects(data);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
@@ -47,7 +46,8 @@ export function ProjectsProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         loadProjects();
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [lang]);
 
     return (
         <ProjectsContext.Provider

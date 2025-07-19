@@ -25,7 +25,7 @@ export default function FlipCard({
             onClick={onClick}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => e.key === "Enter" && onClick?.()}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick?.()}
         >
             <div className="flip-card-inner">
                 {/* Frente: Imagen */}

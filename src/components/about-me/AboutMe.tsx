@@ -15,9 +15,10 @@ export default function AboutMe({ dict }: Props) {
   return (
     <section className="w-full max-w-7xl mx-auto py-8">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.2 }}
         className="bg-white dark:bg-gray-900 rounded-3xl shadow-md p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-stretch gap-10"
       >
         <AboutImage dict={dict} />

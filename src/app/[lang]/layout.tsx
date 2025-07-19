@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { getDictionary } from '@/app/[lang]/dictionaries';
 import ClientAppWrapper from '@/components/theme/ClientAppWrapper';
 import { ThemeProvider } from 'next-themes';
+import { ProjectsProvider } from "@/context/ProjectsContext";
 
 interface Props {
   children: ReactNode;
@@ -17,9 +18,11 @@ export default async function RootLayout({ children, params }: Props) {
   return (
     <html lang={lang} suppressHydrationWarning>
       <body>
-        <ThemeProvider attribute="class">
-          <ClientAppWrapper dict={dict}>{children}</ClientAppWrapper>
-        </ThemeProvider>
+        <ProjectsProvider lang={lang}>
+          <ThemeProvider attribute="class">
+            <ClientAppWrapper dict={dict}>{children}</ClientAppWrapper>
+          </ThemeProvider>
+        </ProjectsProvider>
       </body>
     </html>
   );

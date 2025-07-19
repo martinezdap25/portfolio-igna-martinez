@@ -8,7 +8,6 @@ import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import TechnologiesAnimation from "./TechnologiesAnimation";
 import { Dictionary } from "@/types/directory";
-import { ProjectsProvider } from "@/context/ProjectsContext";
 
 interface Props {
     dict: Dictionary;
@@ -45,12 +44,10 @@ export default function ClientAppWrapper({ dict, children }: Props) {
 
     return (
         <>
-            <ProjectsProvider>
-                <Header lang={lang} dict={dict} />
-                <TechnologiesAnimation withBackground={true} />
-                {children}
-                <Footer dictionary={dict} />
-            </ProjectsProvider>
+            <Header lang={lang} dict={dict} />
+            <TechnologiesAnimation withBackground={true} />
+            {children}
+            <Footer dictionary={dict} />
         </>
     );
 }

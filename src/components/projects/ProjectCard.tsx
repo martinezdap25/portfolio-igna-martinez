@@ -44,8 +44,8 @@ export default function ProjectCard({ project, dict, lang }: Props) {
                     {project.status && (
                         <span
                             className="self-start px-2 py-0.5 rounded-full text-xs font-semibold
-                            bg-indigo-100 text-indigo-800 dark:bg-indigo-700 dark:text-indigo-100
-                            whitespace-nowrap"
+                bg-indigo-100 text-indigo-800 dark:bg-indigo-700 dark:text-indigo-100
+                whitespace-nowrap"
                         >
                             {project.status}
                         </span>
@@ -65,7 +65,9 @@ export default function ProjectCard({ project, dict, lang }: Props) {
                     <p className="text-sm text-gray-700 dark:text-gray-300">{shortDescription}</p>
                 )}
 
-                <div className="flex flex-wrap gap-2 mt-2">
+                <div className="flex-grow" />
+
+                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
                     {project.technologies?.map((tech, index) => (
                         <span
                             key={index}

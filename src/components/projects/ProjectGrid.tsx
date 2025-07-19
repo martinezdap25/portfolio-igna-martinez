@@ -1,9 +1,9 @@
+// src/components/projects/ProjectGrid.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
-import { fetchProjects } from '@/services/projectsService';
+import { useContext } from 'react';
+import { ProjectsContext } from '@/context/ProjectsContext';
 import ProjectCard from './ProjectCard';
-import { Project } from '@/types/project';
 import { motion } from 'framer-motion';
 import { Dictionary } from '@/types/directory';
 
@@ -13,28 +13,9 @@ interface Props {
 }
 
 export default function ProjectGrid({ dict, lang }: Props) {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const { projects, isLoading, error } = useContext(ProjectsContext);
 
-    useEffect(() => {
-        const load = async () => {
-            setLoading(true);
-            setError(false);
-            try {
-                const data = await fetchProjects(lang);
-                setProjects(data);
-            } catch {
-                setError(true);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        load();
-    }, [lang]);
-
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
                 <motion.div
@@ -88,7 +69,7 @@ export default function ProjectGrid({ dict, lang }: Props) {
                 </motion.h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {projects.map((project, index) => (
+                    {projects?.map((project, index) => (
                         <motion.div
                             key={project._id}
                             className="h-full"
