@@ -31,5 +31,9 @@ export interface Dictionary {
   };
   projects: {
     seeMoreDetails: string;
+    features: string;
+    challenges: string;
+    learnings: string;
+    visit: string;
   };
 }

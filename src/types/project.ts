@@ -22,4 +22,9 @@ export interface Project {
     alt: string;
     isMain?: boolean;
   }[];
+  url?: string;
+  githubUrl?: string;
+  teamSize?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }

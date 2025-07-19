@@ -18,7 +18,10 @@
   },
   "intro": {
     "welcome": "Bienvenido!",
-    "roles": ["Programador Web Full-stack.", "Programador Web Front-end."],
+    "roles": [
+      "Programador Web Full-stack.",
+      "Programador Web Front-end."
+    ],
     "button": "Comenzar"
   },
   "about": {
@@ -40,6 +43,10 @@
     ]
   },
   "projects": {
-    "seeMoreDetails": "Ver más detalles →"
+    "seeMoreDetails": "Ver más detalles →",
+    "features": "Características",
+    "challenges": "Desafíos",
+    "learnings": "Aprendizajes",
+    "visit": "Visitar"
   }
 }

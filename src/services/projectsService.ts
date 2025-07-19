@@ -9,3 +9,8 @@ export async function fetchProjects(lang: 'es' | 'en') {
   });
   return response.data;
 }
+
+export async function fetchProjectById(id: string) {
+  const response = await axios.get(`${API_URL}/projects/${id}`);
+  return response.data;
+}
