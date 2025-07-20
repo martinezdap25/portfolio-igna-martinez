@@ -1,7 +1,11 @@
 import ProjectList from "@/components/projects/ProjectList";
 import { getDictionary } from "../dictionaries";
 
-export default async function ProjectsPage({ params }: { params: { lang: string } }) {
+interface Props {
+  params: Promise<{ lang: 'en' | 'es' }>;
+}
+
+export default async function ProjectsPage({ params }: Props) {
 
     const {lang} = await params;
     const safeLang = lang === "es" ? "es" : "en";
