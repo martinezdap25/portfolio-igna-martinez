@@ -2,29 +2,32 @@
 
 import { useContext } from "react";
 import { ProjectsContext } from "@/context/ProjectsContext";
-import Link from "next/link";
+import { Dictionary } from "@/types/directory";
+import ProjectFilters from "./ProjectFilters";
+import ProjectGridPage from "./ProjectGridPage";
 
-export default function ProjectList({ lang }: { lang: string }) {
+interface Props {
+    lang: "en" | "es";
+    dict: Dictionary;
+}
+
+export default function ProjectList({ lang, dict }: Props) {
     const safeLang = lang === "es" ? "es" : "en";
-
     const { projects, isLoading, error } = useContext(ProjectsContext);
 
-    if (isLoading) return <p>Cargando proyectos...</p>;
-    if (error) return <p>Error: {error}</p>;
-    if (!projects || projects.length === 0) return <p>No hay proyectos disponibles.</p>;
+    if (isLoading)
+        return <p className="text-center py-4">Cargando proyectos...</p>;
+    if (error)
+        return <p className="text-center py-4 text-red-500">Error: {error}</p>;
+    if (!projects || projects.length === 0)
+        return <p className="text-center py-4">No hay proyectos disponibles.</p>;
 
     return (
-        <section className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-                <Link
-                    key={project._id}
-                    href={`./${project._id}`}
-                    className="border rounded-lg p-4 shadow hover:shadow-lg transition"
-                >
-                    <h2 className="text-xl font-bold mb-2">{ project.title[safeLang] || project.title['es'] }</h2>
-                </Link>
-            ))}
+        <section className="max-w-7xl mx-auto px-4 py-8">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <ProjectFilters />
+                <ProjectGridPage projects={projects} lang={safeLang} dict={dict} />
+            </div>
         </section>
     );
 }
-

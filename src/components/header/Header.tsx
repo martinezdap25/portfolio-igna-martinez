@@ -43,13 +43,13 @@ export default function Header({
                     <Logo />
                     {/* Navbar al lado del logo en md, oculto en sm, centrado en lg */}
                     <div className="hidden md:block lg:hidden">
-                        <Navbar dict={dict.nav} />
+                        <Navbar dict={dict.nav} lang={lang}/>
                     </div>
                 </div>
 
                 {/* Navbar centrado absoluto en lg */}
                 <div className="hidden lg:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <Navbar dict={dict.nav} />
+                    <Navbar dict={dict.nav} lang={lang}/>
                 </div>
 
                 {/* Controles de tema e idioma en md+ */}

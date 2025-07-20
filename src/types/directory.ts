@@ -36,5 +36,15 @@ export interface Dictionary {
     challenges: string;
     learnings: string;
     visit: string;
+    filters: string;
+    filterOptions: {
+      category: string;
+      technology: string;
+      status: string;
+      featured: string;
+      all: string;
+      yes: string;
+      no: string;
+    };
   };
 }

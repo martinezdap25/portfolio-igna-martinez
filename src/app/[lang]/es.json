@@ -43,10 +43,20 @@
     ]
   },
   "projects": {
-    "seeMoreDetails": "Ver más detalles →",
+    "seeMoreDetails": "Ver más detalles",
     "features": "Características",
     "challenges": "Desafíos",
     "learnings": "Aprendizajes",
-    "visit": "Visitar"
+    "visit": "Visitar",
+    "filters": "Filtros",
+    "filterOptions": {
+      "category": "Categoría",
+      "technology": "Tecnología",
+      "status": "Estado",
+      "featured": "Destacado",
+      "all": "Todos",
+      "yes": "Sí",
+      "no": "No"
+    }
   }
 }

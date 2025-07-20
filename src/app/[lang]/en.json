@@ -43,10 +43,20 @@
     ]
   },
   "projects": {
-    "seeMoreDetails": "See more details →",
+    "seeMoreDetails": "See more details",
     "features": "Features",
     "challenges": "Challenges",
     "learnings": "Learnings",
-    "visit": "Visit"
+    "visit": "Visit",
+    "filters": "Filters",
+    "filterOptions": {
+      "category": "Category",
+      "technology": "Technology",
+      "status": "Status",
+      "featured": "Featured",
+      "all": "All",
+      "yes": "Yes",
+      "no": "No"
+    }
   }
 }
