@@ -48,9 +48,9 @@ export default function ProjectFilters({ }: ProjectFiltersProps) {
                                 <input
                                     type="radio"
                                     name="featured"
-                                    className="accent-indigo-700 h-5 w-5 border-gray-300 dark:border-gray-600 shadow-sm focus:ring-indigo-400 transition"
+                                    className="accent-indigo-700 h-5 w-5 rounded-full bg-indigo-900 border-gray-300 dark:border-gray-600 shadow-sm focus:ring-indigo-400 transition"
                                 />
-                                <span className="text-gray-700 dark:text-gray-300 font-medium transition group-hover:text-indigo-700 dark:group-hover:text-indigo-400">
+                                <span className="text-gray-700 dark:text-gray-300 font-medium rounded-full transition group-hover:text-indigo-700 dark:group-hover:text-indigo-400">
                                     {value}
                                 </span>
                             </label>

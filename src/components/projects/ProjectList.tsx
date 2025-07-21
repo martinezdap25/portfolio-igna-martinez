@@ -23,7 +23,7 @@ export default function ProjectList({ lang, dict }: Props) {
         return <p className="text-center py-4">No hay proyectos disponibles.</p>;
 
     return (
-        <section className="max-w-7xl mx-auto px-4 py-8">
+        <section className="max-w-7xl mx-auto py-8">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <ProjectFilters />
                 <ProjectGridPage projects={projects} lang={safeLang} dict={dict} />
