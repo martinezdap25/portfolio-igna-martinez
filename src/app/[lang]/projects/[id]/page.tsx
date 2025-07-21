@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import InfoCard from "@/components/projects/InfoCard";
 import NotFound from "@/components/ui/NotFound";
+import { getDictionary } from "../../dictionaries";
 
 interface Props {
   params: Promise<{ id: string; lang: "es" | "en" }>;
@@ -12,6 +13,7 @@ interface Props {
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { id, lang } = await params;
+  const dict = await getDictionary(lang);
 
   let project;
 
@@ -55,7 +57,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 cursor-pointer group text-sm"
               >
                 <FiExternalLink className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                Visitar sitio
+                {dict.projects.visitPage}
               </a>
             )}
             {project.githubUrl && (
@@ -65,14 +67,14 @@ export default async function ProjectDetailPage({ params }: Props) {
                 className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 cursor-pointer group text-sm"
               >
                 <FaGithub className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                Ver en GitHub
+                {dict.projects.visitGithub}
               </a>
             )}
           </div>
         </div>
 
         {/* Info Card */}
-        <InfoCard project={project} lang={lang} />
+        <InfoCard project={project} lang={lang} dict={dict} />
       </div>
 
       {/* Right Column - SOLO desde md */}
@@ -80,7 +82,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {/* Tecnologías */}
         <section>
           <h2 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2">
-            Tecnologías
+            {dict.projects.technologies}
           </h2>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech: string) => (
@@ -97,10 +99,10 @@ export default async function ProjectDetailPage({ params }: Props) {
         {/* Meta info */}
         <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
           <p>
-            <strong>Rol:</strong> {project.role[lang]}
+            <strong>{dict.projects.role}:</strong> {project.role[lang]}
           </p>
           <p>
-            <strong>Duración:</strong> {project.duration[lang]}
+            <strong>{dict.projects.duration}:</strong> {project.duration[lang]}
           </p>
         </div>
 
@@ -113,7 +115,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-pointer group"
             >
               <FiExternalLink className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-              Visitar sitio
+              {dict.projects.visitPage}
             </a>
           )}
           {project.githubUrl && (
@@ -123,7 +125,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-pointer group"
             >
               <FaGithub className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-              Ver en GitHub
+              {dict.projects.visitGithub}
             </a>
           )}
         </div>

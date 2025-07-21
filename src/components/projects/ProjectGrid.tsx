@@ -57,7 +57,7 @@ export default function ProjectGrid({ dict, lang }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true, amount: 0.2 }}
-                className="backdrop-blur-sm bg-black/10 dark:bg-gray-600/20 border border-gray-300/20 dark:border-gray-700/20 shadow-md rounded-2xl p-6"
+                className="backdrop-blur-sm bg-black/10 dark:bg-gray-600/20 border border-gray-300/20 dark:border-gray-700/20 shadow-md rounded-2xl p-4"
             >
                 <motion.h2
                     className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-6"

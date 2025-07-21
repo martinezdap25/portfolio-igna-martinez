@@ -45,5 +45,10 @@ export interface Dictionary {
       yes: string;
       no: string;
     };
+    technologies: string;
+    role: string;
+    duration: string;
+    visitPage: string;
+    visitGithub: string;
   };
 }

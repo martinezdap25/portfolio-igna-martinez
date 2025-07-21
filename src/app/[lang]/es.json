@@ -57,6 +57,11 @@
       "all": "Todos",
       "yes": "Sí",
       "no": "No"
-    }
+    },
+    "technologies": "Tecnologías",
+    "role": "Rol",
+    "duration": "Duración",
+    "visitPage": "Visitar página",
+    "visitGithub": "Ir a Github"
   }
 }
