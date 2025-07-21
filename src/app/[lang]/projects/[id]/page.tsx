@@ -75,6 +75,36 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         {/* Info Card */}
         <InfoCard project={project} lang={lang} dict={dict} />
+
+        {/* Tecnologías y meta info - SOLO en mobile */}
+        <div className="md:hidden space-y-6 bg-gray-50 dark:bg-gray-900 rounded-xl shadow-sm p-4">
+          {/* Tecnologías */}
+          <section>
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
+              {dict.projects.technologies}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.map((tech: string) => (
+                <span
+                  key={tech}
+                  className="bg-indigo-200 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 text-xs px-3 py-1 rounded-full cursor-default"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          {/* Meta info */}
+          <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+            <p>
+              <strong>{dict.projects.role}:</strong> {project.role[lang]}
+            </p>
+            <p>
+              <strong>{dict.projects.duration}:</strong> {project.duration[lang]}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Right Column - SOLO desde md */}
