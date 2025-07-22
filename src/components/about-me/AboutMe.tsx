@@ -19,7 +19,7 @@ export default function AboutMe({ dict }: Props) {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.2 }}
-        className="bg-white dark:bg-gray-900 rounded-3xl shadow-md p-4 sm:p-8 md:p-12 flex flex-col md:flex-row items-stretch gap-10"
+        className="bg-white dark:bg-gray-900 rounded-3xl shadow-md p-4 sm:p-8 flex flex-col md:flex-row items-stretch gap-10"
       >
         <AboutImage dict={dict} />
 

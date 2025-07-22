@@ -64,7 +64,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               <a
                 href={project.githubUrl}
                 target="_blank"
-                className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 cursor-pointer group text-sm"
+                className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-950 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 cursor-pointer group text-sm"
               >
                 <FaGithub className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 {dict.projects.visitGithub}
@@ -152,7 +152,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             <a
               href={project.githubUrl}
               target="_blank"
-              className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-pointer group"
+              className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-950 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-pointer group"
             >
               <FaGithub className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
               {dict.projects.visitGithub}

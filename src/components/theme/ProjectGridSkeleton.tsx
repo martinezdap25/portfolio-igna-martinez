@@ -1,9 +1,13 @@
 'use client';
 
-export default function ProjectGridSkeleton() {
+interface ProjectGridSkeletonProps {
+    count?: number; // opcional, por defecto 6
+}
+
+export default function ProjectGridSkeleton({ count = 6 }: ProjectGridSkeletonProps) {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 animate-pulse">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {Array.from({ length: count }).map((_, i) => (
                 <div key={i} className="h-[400px] bg-gray-200 dark:bg-gray-800 rounded-2xl shadow p-4 flex flex-col">
                     <div className="h-48 bg-gray-300 dark:bg-gray-700 rounded-md mb-4" />
                     <div className="h-5 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mb-2" />
