@@ -13,7 +13,7 @@ interface IntroScreenProps {
       button: string;
     };
   };
-  onFinish: () => void; // <-- Agregado aquí
+  onFinish: () => void;
 }
 
 export default function IntroScreen({ dict, onFinish }: IntroScreenProps) {
@@ -25,13 +25,17 @@ export default function IntroScreen({ dict, onFinish }: IntroScreenProps) {
   });
 
   const handleHideIntro = () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("introSeen", "true");
-      localStorage.setItem(
-        "theme",
-        document.documentElement.classList.contains("dark") ? "dark" : "light"
-      );
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("introSeen", "true");
+
+        const isDark = document?.documentElement?.classList?.contains("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      }
+    } catch (error) {
+      console.error("Error setting intro state or theme:", error);
     }
+
     onFinish(); // Aviso que se terminó el intro
   };
 
@@ -44,7 +48,10 @@ export default function IntroScreen({ dict, onFinish }: IntroScreenProps) {
         transition={{ duration: 1, ease: "easeInOut" }}
         className="fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white px-6 text-center space-y-8"
       >
-        <TechnologiesAnimation />
+        {/* Envolvemos la animación en overflow-hidden para evitar ResizeObserver loop error */}
+        <div className="w-full overflow-hidden">
+          <TechnologiesAnimation />
+        </div>
 
         <motion.div
           initial={{ rotateY: 180, opacity: 0, scale: 0.8 }}

@@ -69,19 +69,25 @@ export default function TechnologiesAnimation({ withBackground = false }: Techno
     const [icons, setIcons] = useState<FloatingIcon[]>([])
 
     useEffect(() => {
-        const newIcons: FloatingIcon[] = Array.from({ length: 15 }, () => {
+        if (typeof window === 'undefined') return
+
+        const isMobile = window.innerWidth < 768
+        const totalIcons = isMobile ? 8 : 15
+
+        const newIcons: FloatingIcon[] = Array.from({ length: totalIcons }, () => {
             const tech = techs[Math.floor(Math.random() * techs.length)]
             return {
                 ...tech,
                 left: Math.random() * 100,
                 delay: Math.random() * 25,
-                size: 50 + Math.random() * 30,
+                size: isMobile ? 30 + Math.random() * 20 : 50 + Math.random() * 30,
                 duration: 12 + Math.random() * 10,
                 swayDuration: 3 + Math.random() * 3,
                 swayDistance: Math.random() < 0.5 ? 0 : 2 + Math.random() * 4,
                 swayDelay: Math.random() * 5,
             }
         })
+
         setIcons(newIcons)
     }, [])
 
@@ -89,6 +95,7 @@ export default function TechnologiesAnimation({ withBackground = false }: Techno
 
     return (
         <div
+            aria-hidden="true"
             className={`fixed inset-0 -z-20 overflow-hidden pointer-events-none ${withBackground ? 'bg-gray-100 dark:bg-gray-900/50 backdrop-blur-sm' : ''
                 }`}
         >
@@ -106,7 +113,7 @@ export default function TechnologiesAnimation({ withBackground = false }: Techno
                             repeatType: 'loop',
                             ease: 'linear',
                         }}
-                        className="absolute"
+                        className="absolute will-change-transform"
                         style={{
                             left: `${icon.left}%`,
                             width: icon.size,
@@ -124,10 +131,7 @@ export default function TechnologiesAnimation({ withBackground = false }: Techno
                                 ease: 'easeInOut',
                                 delay: icon.swayDelay,
                             }}
-                            className="w-full h-full rounded-xl flex items-center justify-center p-2
-                backdrop-blur-md
-                opacity-95
-                text-gray-800 dark:text-white"
+                            className="w-full h-full rounded-xl flex items-center justify-center p-2 backdrop-blur-md opacity-95 text-gray-800 dark:text-white"
                         >
                             <Icon className="w-full h-full" />
                         </motion.div>
