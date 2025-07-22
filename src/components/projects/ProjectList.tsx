@@ -4,7 +4,7 @@
 import { useCallback, useEffect, useState } from "react";
 import ProjectFilters from "./ProjectFilters";
 import ProjectGridPage from "./ProjectGridPage";
-import FullPageLoader from "../ui/FullPageLoader";
+import ProjectGridSkeleton from "@/components/theme/ProjectGridSkeleton";
 import { Dictionary } from "@/types/directory";
 import { fetchProjects } from "@/services/projectsService";
 
@@ -36,7 +36,7 @@ export default function ProjectList({ lang, dict }: Props) {
     limit: 6,
   });
 
-  const [projects, setProjects] = useState<any>(null);
+  const [projects, setProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -51,7 +51,7 @@ export default function ProjectList({ lang, dict }: Props) {
         orderBy: filters.orderBy ?? undefined,
       };
       const data = await fetchProjects(safeLang, sanitizedFilters);
-      setProjects(data);
+      setProjects(data || []);
     } catch (err: any) {
       setError(err.message || "Error al cargar proyectos");
     } finally {
@@ -63,15 +63,23 @@ export default function ProjectList({ lang, dict }: Props) {
     loadProjects();
   }, [loadProjects]);
 
-  if (isLoading) return <FullPageLoader />;
-  if (error) return <p className="text-center py-4 text-red-500">Error: {error}</p>;
-  if (!projects || projects.length === 0) return <p className="text-center py-4">No hay proyectos disponibles.</p>;
-
   return (
     <section className="max-w-7xl mx-auto py-8">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 px-4">
         <ProjectFilters filters={filters} setFilters={setFilters} />
-        <ProjectGridPage projects={projects} lang={safeLang} dict={dict} />
+        <div className="lg:col-span-3">
+          {isLoading ? (
+            <ProjectGridSkeleton />
+          ) : error ? (
+            <p className="text-center text-red-500">{error}</p>
+          ) : projects.length === 0 ? (
+            <p className="text-center text-gray-600 dark:text-gray-300">
+              No se encontraron proyectos con los filtros seleccionados.
+            </p>
+          ) : (
+            <ProjectGridPage projects={projects} lang={safeLang} dict={dict} />
+          )}
+        </div>
       </div>
     </section>
   );
