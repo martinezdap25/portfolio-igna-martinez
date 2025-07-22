@@ -65,13 +65,13 @@ interface TechnologiesAnimationProps {
     withBackground?: boolean
 }
 
-// Función simple para pseudo-random con semilla fija
+// Pseudo-random con semilla fija
 function seededRandom(seed: number) {
     const x = Math.sin(seed) * 10000
     return x - Math.floor(x)
 }
 
-const TOTAL_ICONS = 15
+const TOTAL_ICONS = 6
 
 function generateIcons(): FloatingIcon[] {
     const icons: FloatingIcon[] = []
@@ -84,10 +84,10 @@ function generateIcons(): FloatingIcon[] {
             ...tech,
             left: seededRandom(seed * 3) * 100,
             delay: seededRandom(seed * 7) * 25,
-            size: 50 + seededRandom(seed * 11) * 30,
+            size: 60 + seededRandom(seed * 11) * 40, // un poco más grande
             duration: 12 + seededRandom(seed * 17) * 10,
-            swayDuration: 3 + seededRandom(seed * 23) * 3,
-            swayDistance: seededRandom(seed * 29) < 0.5 ? 0 : 2 + seededRandom(seed * 31) * 4,
+            swayDuration: 4 + seededRandom(seed * 23) * 2,
+            swayDistance: seededRandom(seed * 29) < 0.7 ? 1 : 1 + seededRandom(seed * 31) * 2, // menos sway para suavizar
             swayDelay: seededRandom(seed * 37) * 5,
         })
     }
@@ -95,32 +95,15 @@ function generateIcons(): FloatingIcon[] {
     return icons
 }
 
-export default function TechnologiesAnimation({ withBackground = false }: TechnologiesAnimationProps) {
+export default function TechnologiesAnimationMobile({ withBackground = false }: TechnologiesAnimationProps) {
     const [icons, setIcons] = useState<FloatingIcon[]>([])
-    const [isDesktop, setIsDesktop] = useState(false)
 
     useEffect(() => {
-        if (typeof window === 'undefined') return
-
-        const checkIsDesktop = () => setIsDesktop(window.innerWidth >= 1024)
-
-        checkIsDesktop()
-        window.addEventListener('resize', checkIsDesktop)
-
-        return () => window.removeEventListener('resize', checkIsDesktop)
+        // Generar iconos una sola vez
+        setIcons(generateIcons())
     }, [])
 
-    useEffect(() => {
-        if (!isDesktop) {
-            setIcons([])
-            return
-        }
-
-        // Generar iconos con la misma animación fija
-        setIcons(generateIcons())
-    }, [isDesktop])
-
-    if (!isDesktop || icons.length === 0) return null
+    if (icons.length === 0) return null
 
     return (
         <div

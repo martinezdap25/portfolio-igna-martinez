@@ -1,56 +1,60 @@
-"use client";
+'use client'
 
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import TechnologiesAnimation from "./TechnologiesAnimation";
-import { useTypedText } from "@/hooks/useTypedText";
+import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
+import { useIsDesktop } from '@/hooks/useIsDesktop'
+import TechnologiesAnimation from './TechnologiesAnimation' // desktop version
+import TechnologiesAnimationMobile from './TechnologiesAnimationMobile' // mobile version
+import { useTypedText } from '@/hooks/useTypedText'
 
 interface IntroScreenProps {
   dict: {
     intro: {
-      welcome: string;
-      roles: string[];
-      button: string;
-    };
-  };
-  onFinish: () => void;
+      welcome: string
+      roles: string[]
+      button: string
+    }
+  }
+  onFinish: () => void
 }
 
 export default function IntroScreen({ dict, onFinish }: IntroScreenProps) {
+  const isDesktop = useIsDesktop()
+
   const text = useTypedText({
     texts: dict.intro.roles,
     typingSpeed: 70,
     pauseDuration: 2000,
     deletingSpeed: 40,
-  });
+  })
 
   const handleHideIntro = () => {
     try {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("introSeen", "true");
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('introSeen', 'true')
 
-        const isDark = document?.documentElement?.classList?.contains("dark");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
+        const isDark = document?.documentElement?.classList?.contains('dark')
+        localStorage.setItem('theme', isDark ? 'dark' : 'light')
       }
     } catch (error) {
-      console.error("Error setting intro state or theme:", error);
+      console.error('Error setting intro state or theme:', error)
     }
 
-    onFinish(); // Aviso que se terminó el intro
-  };
+    onFinish()
+  }
 
   return (
     <AnimatePresence>
       <motion.div
         initial={{ y: 0 }}
         animate={{ y: 0 }}
-        exit={{ y: "-100%" }}
-        transition={{ duration: 1, ease: "easeInOut" }}
+        exit={{ y: '-100%' }}
+        transition={{ duration: 1, ease: 'easeInOut' }}
         className="fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white px-6 text-center space-y-8"
       >
         {/* Envolvemos la animación en overflow-hidden para evitar ResizeObserver loop error */}
         <div className="w-full overflow-hidden">
-          <TechnologiesAnimation />
+          {isDesktop ? <TechnologiesAnimation /> : <TechnologiesAnimationMobile />}
         </div>
 
         <motion.div
@@ -82,7 +86,7 @@ export default function IntroScreen({ dict, onFinish }: IntroScreenProps) {
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 2 }}
+          transition={{ duration: 1, ease: 'easeOut', delay: 2 }}
           className="w-28 h-28 rounded-full bg-indigo-600 dark:bg-white text-white dark:text-gray-900 flex items-center justify-center cursor-pointer wobble-hor-bottom font-semibold text-sm md:text-lg shadow-md dark:hover:bg-indigo-600 hover:bg-indigo-700 hover:text-white hover:shadow-xl transition-all duration-300"
           onClick={handleHideIntro}
         >
@@ -90,5 +94,5 @@ export default function IntroScreen({ dict, onFinish }: IntroScreenProps) {
         </motion.button>
       </motion.div>
     </AnimatePresence>
-  );
+  )
 }
