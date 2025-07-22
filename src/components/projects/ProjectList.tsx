@@ -2,15 +2,15 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import ProjectFilters from "./ProjectFilters"; // El filtro para desktop
+import ProjectFilters from "./ProjectFilters";
 import ProjectGridPage from "./ProjectGridPage";
 import ProjectGridSkeleton from "@/components/theme/ProjectGridSkeleton";
-import SidebarFilter from "./SidebarFilter"; // El nuevo filtro para móvil
+import SidebarFilter from "./SidebarFilter";
 import { Dictionary } from "@/types/directory";
 import { fetchProjects } from "@/services/projectsService";
-import { useIsDesktop } from "@/hooks/useIsDesktop"; // Importa el hook
+import { useIsDesktop } from "@/hooks/useIsDesktop";
 
-import { FiFilter } from "react-icons/fi"; // Importa un icono de filtro
+import { FiFilter } from "react-icons/fi";
 
 interface Props {
   lang: "en" | "es";
@@ -29,9 +29,9 @@ interface Filters {
 
 export default function ProjectList({ lang, dict }: Props) {
   const safeLang = lang === "es" ? "es" : "en";
-  const isDesktop = useIsDesktop(); // Usa el hook
-  const [showMobileFilters, setShowMobileFilters] = useState(false); // Estado para controlar el sidebar móvil
+  const isDesktop = useIsDesktop();
 
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [filters, setFilters] = useState<Filters>({
     category: [],
     technology: [],
@@ -70,27 +70,32 @@ export default function ProjectList({ lang, dict }: Props) {
   }, [loadProjects]);
 
   return (
-    <section className="max-w-7xl mx-auto py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 px-4">
-        {/* Filtros para desktop (visible solo en pantallas grandes) */}
+    <section className="max-w-7xl mx-auto py-10 px-4">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Sidebar Desktop */}
         {isDesktop && (
           <ProjectFilters filters={filters} setFilters={setFilters} />
         )}
 
-        {/* Botón de filtro para móvil (visible solo en pantallas pequeñas) */}
-        {!isDesktop && (
-          <div className="lg:hidden w-full mb-4 px-4">
-            <button
-              onClick={() => setShowMobileFilters(true)}
-              className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition shadow-md"
-            >
-              <FiFilter size={20} />
-              Mostrar Filtros
-            </button>
-          </div>
-        )}
+        {/* Main Grid */}
+        <div className="relative lg:col-span-3">
+          {/* Botón móvil */}
+          {!isDesktop && (
+            <div className="flex justify-between items-center mb-4">
 
-        <div className="lg:col-span-3">
+              <h3 className="text-2xl font-bold text-gray-800 dark:text-white">Proyectos</h3>
+
+              <button
+                onClick={() => setShowMobileFilters(true)}
+                className="flex items-center gap-2 px-4 py-2 text-sm rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow transition"
+              >
+                <FiFilter size={18} />
+                Filtros
+              </button>
+            </div>
+          )}
+
+          {/* Grid de proyectos */}
           {isLoading ? (
             <ProjectGridSkeleton />
           ) : error ? (
@@ -105,7 +110,7 @@ export default function ProjectList({ lang, dict }: Props) {
         </div>
       </div>
 
-      {/* Sidebar de filtros para móvil */}
+      {/* Sidebar móvil */}
       <SidebarFilter
         filters={filters}
         setFilters={setFilters}

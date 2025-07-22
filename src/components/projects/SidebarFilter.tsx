@@ -79,15 +79,15 @@ export default function SidebarFilter({ filters, setFilters, isOpen, onClose }: 
             {/* Overlay oscuro */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+                    className="fixed inset-0 bg-black/40 z-40 lg:hidden"
                     onClick={onClose}
                 ></div>
             )}
 
             {/* Sidebar */}
             <aside
-                className={`fixed top-0 right-0 h-full w-64 bg-white dark:bg-gray-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out
-                ${isOpen ? "translate-x-0" : "translate-x-full"} lg:hidden`}
+                className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 shadow-xl z-50 transform transition-transform duration-300 ease-in-out
+                ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:hidden`}
             >
                 <div className="p-6 space-y-8 h-full overflow-y-auto">
                     <div className="flex justify-between items-center mb-6">
