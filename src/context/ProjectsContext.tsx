@@ -34,7 +34,7 @@ export function ProjectsProvider({
         setIsLoading(true);
         setError(null);
         try {
-            const data = await fetchProjects(lang);
+            const data = await fetchProjects();
             setProjects(data);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
@@ -46,7 +46,6 @@ export function ProjectsProvider({
 
     useEffect(() => {
         loadProjects();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lang]);
 
     return (
