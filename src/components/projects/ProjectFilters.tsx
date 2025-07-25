@@ -10,12 +10,25 @@ interface Filters {
     limit: number;
 }
 
+interface Technology {
+    _id: string;
+    name: string;
+}
+
+interface Category {
+    _id: string;
+    name: string;
+}
+
 interface ProjectFiltersProps {
     filters: Filters;
     setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+    availableTechnologies: Technology[];
+    availableCategories: Category[];
+    availableYears: string[];
 }
 
-export default function ProjectFilters({ filters, setFilters }: ProjectFiltersProps) {
+export default function ProjectFilters({ filters, setFilters, availableTechnologies, availableCategories, availableYears }: ProjectFiltersProps) {
     const { category, technology, year, favoritesOrFeatured, orderBy } = filters;
 
     const toggleCategory = (cat: string) => {
@@ -27,9 +40,9 @@ export default function ProjectFilters({ filters, setFilters }: ProjectFiltersPr
     };
 
     const handleTechnologyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const tech = e.target.value;
-        if (tech && !technology.includes(tech)) {
-            setFilters(prev => ({ ...prev, technology: [...prev.technology, tech], page: 1 }));
+        const techId = e.target.value;
+        if (techId && !technology.includes(techId)) {
+            setFilters(prev => ({ ...prev, technology: [...prev.technology, techId], page: 1 }));
         }
     };
 
@@ -62,11 +75,13 @@ export default function ProjectFilters({ filters, setFilters }: ProjectFiltersPr
         });
     };
 
-    const availableCategories = ["Fullstack", "Frontend", "Backend"];
-    const availableTechnologies = ["React", "Next.js", "Node.js", "Python", "Django", "TypeScript", "SQL", "MongoDB", "Express", "Vue.js"];
-    const availableYears = ["2024", "2023", "2022", "2021", "2020", "2019", "2018"];
     const favoriteFeaturedOptions = ["Sí", "No"];
-    const orderByOptions = ["Más reciente", "Más antiguo", "Nombre (A-Z)"];
+    const orderByOptions = [
+        { label: "Más reciente", value: "year_desc" },
+        { label: "Más antiguo", value: "year_asc" },
+        { label: "Nombre (A-Z)", value: "name_asc" },
+        { label: "Nombre (Z-A)", value: "name_desc" },
+    ];
 
     return (
         <aside className="w-full max-w-xs sticky top-8 self-start hidden lg:block">
@@ -79,18 +94,18 @@ export default function ProjectFilters({ filters, setFilters }: ProjectFiltersPr
                         Categoría
                     </h3>
                     <div className="flex flex-col space-y-3">
-                        {availableCategories.map(label => (
-                            <label key={label} className="flex items-center gap-3 cursor-pointer">
+                        {availableCategories.map(cat => (
+                            <label key={cat._id} className="flex items-center gap-3 cursor-pointer">
                                 <input
                                     type="checkbox"
-                                    checked={category.includes(label)}
-                                    onChange={() => toggleCategory(label)}
+                                    checked={category.includes(cat.name)}
+                                    onChange={() => toggleCategory(cat.name)}
                                     className="peer appearance-none h-5 w-5 rounded border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800
                   checked:border-indigo-500 checked:bg-indigo-500
                   focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-700 transition"
                                 />
                                 <span className="text-gray-700 dark:text-gray-300 font-medium peer-checked:text-indigo-700 dark:peer-checked:text-indigo-400 transition">
-                                    {label}
+                                    {cat.name}
                                 </span>
                             </label>
                         ))}
@@ -110,28 +125,31 @@ export default function ProjectFilters({ filters, setFilters }: ProjectFiltersPr
                         <option value="" disabled>
                             Seleccionar Tecnologías
                         </option>
-                        {availableTechnologies.filter(tech => !technology.includes(tech)).map(tech => (
-                            <option key={tech} value={tech}>
-                                {tech}
+                        {availableTechnologies.filter(tech => !technology.includes(tech.name)).map(tech => (
+                            <option key={tech._id} value={tech._id}>
+                                {tech.name}
                             </option>
                         ))}
                     </select>
                     <div className="mt-3 flex flex-wrap gap-2">
-                        {technology.map(tech => (
-                            <span
-                                key={tech}
-                                className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-700 dark:text-indigo-100"
-                            >
-                                {tech}
-                                <button
-                                    type="button"
-                                    onClick={() => removeTechnology(tech)}
-                                    className="ml-2 -mr-0.5 h-4 w-4 rounded-full flex items-center justify-center text-indigo-600 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-200 dark:hover:bg-indigo-600 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        {technology.map(techId => {
+                            const tech = availableTechnologies.find(t => t._id === techId);
+                            return (
+                                <span
+                                    key={techId}
+                                    className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-700 dark:text-indigo-100"
                                 >
-                                    &times;
-                                </button>
-                            </span>
-                        ))}
+                                    {tech?.name || "Tecnología"}
+                                    <button
+                                        type="button"
+                                        onClick={() => removeTechnology(techId)}
+                                        className="ml-2 -mr-0.5 h-4 w-4 rounded-full flex items-center justify-center text-indigo-600 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-200 dark:hover:bg-indigo-600 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    >
+                                        &times;
+                                    </button>
+                                </span>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -185,19 +203,19 @@ export default function ProjectFilters({ filters, setFilters }: ProjectFiltersPr
                         Orden
                     </h3>
                     <div className="flex flex-col space-y-3">
-                        {orderByOptions.map(order => (
-                            <label key={order} className="flex items-center gap-3 cursor-pointer">
+                        {orderByOptions.map(({ label, value }) => (
+                            <label key={value} className="flex items-center gap-3 cursor-pointer">
                                 <input
                                     type="radio"
                                     name="orderBy"
-                                    checked={orderBy === order}
-                                    onChange={() => setOrder(order)}
+                                    checked={orderBy === value}
+                                    onChange={() => setOrder(value)}
                                     className="peer appearance-none h-5 w-5 rounded-full border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800
-                  checked:border-indigo-500 checked:bg-indigo-500
-                  focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-700 transition"
+        checked:border-indigo-500 checked:bg-indigo-500
+        focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-700 transition"
                                 />
                                 <span className="text-gray-700 dark:text-gray-300 font-medium peer-checked:text-indigo-700 dark:peer-checked:text-indigo-400 transition">
-                                    {order}
+                                    {label}
                                 </span>
                             </label>
                         ))}

@@ -84,12 +84,12 @@ export default async function ProjectDetailPage({ params }: Props) {
               {dict.projects.technologies}
             </h3>
             <div className="flex flex-wrap gap-2">
-              {project.technologies.map((tech: string) => (
+              {project.technologies.map((tech: { name: string }) => (
                 <span
-                  key={tech}
+                  key={tech.name}
                   className="bg-indigo-200 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 text-xs px-3 py-1 rounded-full cursor-default"
                 >
-                  {tech}
+                  {tech.name}
                 </span>
               ))}
             </div>
@@ -115,12 +115,12 @@ export default async function ProjectDetailPage({ params }: Props) {
             {dict.projects.technologies}
           </h2>
           <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech: string) => (
+            {project.technologies.map((tech: { name: string }) => (
               <span
-                key={tech}
+                key={tech.name}
                 className="bg-indigo-200 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 text-xs sm:text-sm px-3 py-1 rounded-full cursor-default"
               >
-                {tech}
+                {tech.name}
               </span>
             ))}
           </div>

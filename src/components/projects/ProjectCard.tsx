@@ -73,7 +73,7 @@ export default function ProjectCard({ project, dict, lang }: Props) {
                             key={index}
                             className="bg-indigo-500 text-white text-xs px-2 py-1 rounded-full"
                         >
-                            {tech}
+                            {tech.name}
                         </span>
                     ))}
                 </div>

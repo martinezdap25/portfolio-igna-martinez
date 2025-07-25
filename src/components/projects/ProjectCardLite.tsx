@@ -14,7 +14,7 @@ interface Props {
 export default function ProjectCardLite({ project, dict, lang }: Props) {
     const title = project.title[lang];
     const shortDescription = project.shortDescription?.[lang];
-    const mainImage = project.images?.find((img) => img.isMain) || project.images?.[0];
+    const mainImage = project.images?.[0];
 
     return (
         <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px]">
@@ -46,7 +46,7 @@ export default function ProjectCardLite({ project, dict, lang }: Props) {
                             key={index}
                             className="bg-indigo-100 text-indigo-800 dark:bg-indigo-700 dark:text-white text-xs px-2 py-1 rounded-full"
                         >
-                            {tech}
+                            {tech.name}
                         </span>
                     ))}
                 </div>

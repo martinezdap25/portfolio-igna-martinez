@@ -15,6 +15,8 @@ interface Props {
 export default function ProjectGrid({ dict, lang }: Props) {
     const { projects, isLoading, error } = useContext(ProjectsContext);
 
+    console.log(projects, dict);
+
     return (
         <section className="relative z-10 space-y-6">
             <motion.div

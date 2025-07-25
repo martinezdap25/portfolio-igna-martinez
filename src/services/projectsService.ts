@@ -5,13 +5,12 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 console.log(API_URL);
 
 export async function fetchProjects(
-  lang: string,
   filters: {
     category?: string[];
     technology?: string[];
     year?: string;
-    favoritesOrFeatured?: string;
-    orderBy?: string;
+    favoritesOrFeatured?: "featured" | "not_featured"; // más claro con valores explícitos
+    orderBy?: string; // ejemplo: "name_asc"
     page?: number;
     limit?: number;
   } = {}
@@ -28,25 +27,48 @@ export async function fetchProjects(
 
   const params = new URLSearchParams();
 
-  params.append("lang", lang);
-  if (category && category.length > 0)
-    params.append("category", category.join(","));
-  if (technology && technology.length > 0)
-    params.append("technology", technology.join(","));
-  if (year) params.append("year", year);
-  if (favoritesOrFeatured) params.append("favoritesOrFeatured", favoritesOrFeatured);
-  if (orderBy) params.append("orderBy", orderBy);
+  if (category?.length) {
+    category.forEach((catId) => params.append("category", catId));
+  }
+
+  if (technology?.length) {
+    technology.forEach((techId) => params.append("technology", techId));
+  }
+
+  if (year) {
+    params.append("year", year);
+  }
+
+  if (favoritesOrFeatured === "featured") {
+    params.append("featured", "true");
+  } else if (favoritesOrFeatured === "not_featured") {
+    params.append("featured", "false");
+  }
+
+  // Sort (ordenamiento)
+  if (orderBy) {
+    params.append("sort", orderBy); // ej: name_asc, name_desc
+  }
+
   params.append("page", page.toString());
   params.append("limit", limit.toString());
 
-  const response = await axios.get(`${API_URL}/projects/?${params.toString()}`);
-  return response.data.data;
-  
+  try {
+    const response = await axios.get(`${API_URL}/projects?${params.toString()}`);
+    console.log(`URL: ${API_URL}/projects?${params.toString()}`);
+    console.log("Data que recibimos ", response.data);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return [];
+  }
 }
 
 export async function fetchProjectById(id: string) {
+
   try {
     const response = await axios.get(`${API_URL}/projects/${id}`);
+
     return response.data;
   } catch (error: any) {
     if (axios.isAxiosError(error) && error.response?.status === 404) {
@@ -54,4 +76,20 @@ export async function fetchProjectById(id: string) {
     }
     throw new Error("FETCH_ERROR");
   }
+}
+
+export async function fetchAvailableTechnologies() {
+  const response = await axios.get(`${API_URL}/projects/technologies`);
+  return response.data;
+}
+
+export async function fetchAvailableCategories() {
+  const response = await axios.get(`${API_URL}/projects/categories`);
+  return response.data;
+}
+
+export async function fetchAvailableYears() {
+  const response = await axios.get(`${API_URL}/projects/years`);
+  console.log(response.data);
+  return response.data;
 }

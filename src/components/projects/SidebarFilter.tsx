@@ -14,14 +14,27 @@ interface Filters {
     limit: number;
 }
 
+interface Technology {
+    _id: string;
+    name: string;
+}
+
+interface Category {
+    _id: string;
+    name: string;
+}
+
 interface SidebarFilterProps {
     filters: Filters;
     setFilters: React.Dispatch<React.SetStateAction<Filters>>;
     isOpen: boolean;
     onClose: () => void;
+    availableTechnologies: Technology[];
+    availableCategories: Category[];
+    availableYears: string[];
 }
 
-export default function SidebarFilter({ filters, setFilters, isOpen, onClose }: SidebarFilterProps) {
+export default function SidebarFilter({ filters, setFilters, isOpen, onClose, availableTechnologies, availableCategories, availableYears }: SidebarFilterProps) {
     const { category, technology, year, favoritesOrFeatured, orderBy } = filters;
 
     const toggleCategory = (cat: string) => {
@@ -68,9 +81,6 @@ export default function SidebarFilter({ filters, setFilters, isOpen, onClose }: 
         });
     };
 
-    const availableCategories = ["Fullstack", "Frontend", "Backend"];
-    const availableTechnologies = ["React", "Next.js", "Node.js", "Python", "Django", "TypeScript", "SQL", "MongoDB", "Express", "Vue.js"];
-    const availableYears = ["2024", "2023", "2022", "2021", "2020", "2019", "2018"];
     const favoriteFeaturedOptions = ["Sí", "No"];
     const orderByOptions = ["Más reciente", "Más antiguo", "Nombre (A-Z)"];
 
@@ -109,18 +119,18 @@ export default function SidebarFilter({ filters, setFilters, isOpen, onClose }: 
                             Categoría
                         </h3>
                         <div className="flex flex-col space-y-3">
-                            {availableCategories.map(label => (
-                                <label key={label} className="flex items-center gap-3 cursor-pointer">
+                            {availableCategories.map(cat => (
+                                <label key={cat._id} className="flex items-center gap-3 cursor-pointer">
                                     <input
                                         type="checkbox"
-                                        checked={category.includes(label)}
-                                        onChange={() => toggleCategory(label)}
+                                        checked={category.includes(cat.name)}
+                                        onChange={() => toggleCategory(cat.name)}
                                         className="peer appearance-none h-5 w-5 rounded border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800
                                             checked:border-indigo-500 checked:bg-indigo-500
                                             focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-700 transition"
                                     />
                                     <span className="text-gray-700 dark:text-gray-300 font-medium peer-checked:text-indigo-700 dark:peer-checked:text-indigo-400 transition">
-                                        {label}
+                                        {cat.name}
                                     </span>
                                 </label>
                             ))}
@@ -140,9 +150,9 @@ export default function SidebarFilter({ filters, setFilters, isOpen, onClose }: 
                             <option value="" disabled>
                                 Seleccionar Tecnologías
                             </option>
-                            {availableTechnologies.filter(tech => !technology.includes(tech)).map(tech => (
-                                <option key={tech} value={tech}>
-                                    {tech}
+                            {availableTechnologies.filter(tech => !technology.includes(tech.name)).map(tech => (
+                                <option key={tech._id} value={tech.name}>
+                                    {tech.name}
                                 </option>
                             ))}
                         </select>
