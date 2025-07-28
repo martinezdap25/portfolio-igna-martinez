@@ -18,8 +18,8 @@ export interface Category {
 export interface Technology {
   _id: string;
   name: string;
-  iconUrl?: string;
-  category: string | Category;
+  iconUrl: string;
+  category: Category;
   createdAt?: string;
   updatedAt?: string;
 }
