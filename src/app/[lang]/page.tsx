@@ -23,7 +23,6 @@ export default async function Page({ params }: Props) {
           <ProjectsGrid dict={dict} lang={lang} />
         </section>
         <section className="mb-8">
-          <h1 className="text-3xl font-bold mb-8">Tecnologías</h1>
           <TechnologiesSection technologies={technologies} />
         </section>
       </main>
