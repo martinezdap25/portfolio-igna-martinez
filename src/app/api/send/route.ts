@@ -19,7 +19,10 @@ export async function POST(req: NextRequest) {
     const validation = sendEmailSchema.safeParse(body);
     if (!validation.success) {
       console.error("❌ Errores de validación:", validation.error.format());
-      return NextResponse.json({ error: validation.error.format() }, { status: 400 });
+      return NextResponse.json(
+        { error: validation.error.format() },
+        { status: 400 }
+      );
     }
 
     const { firstName, email } = validation.data;
@@ -27,33 +30,41 @@ export async function POST(req: NextRequest) {
     // 3. Instanciar Resend
     if (!process.env.RESEND_API_KEY) {
       console.error("❌ Falta RESEND_API_KEY en variables de entorno");
-      return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Server misconfigured" },
+        { status: 500 }
+      );
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // 4. Enviar correo
+    // 📌 IMPORTANTE: tu propio correo verificado en Resend
+    const MY_EMAIL = process.env.RESEND_TO_EMAIL as string;
+
+    // 4. Enviar correo (a vos)
     console.log("📤 Enviando email con Resend:", {
       from: process.env.RESEND_FROM_EMAIL,
-      to: email,
+      to: MY_EMAIL,
       firstName,
+      userEmail: email,
     });
 
     const response = await resend.emails.send({
       from: `Ignacio Martinez - Full Stack Developer <${process.env.RESEND_FROM_EMAIL}>`,
-      to: [email],
-      subject: "¿En qué puedo ayudarte?",
+      to: [MY_EMAIL],
+      subject: "📬 Nuevo contacto desde tu portfolio",
       react: EmailTemplate({ firstName }),
+      replyTo: email,
     });
 
-    // 5. Loguear respuesta completa
-    console.log("✅ Respuesta completa de Resend:", JSON.stringify(response, null, 2));
+    console.log(
+      "✅ Respuesta completa de Resend:",
+      JSON.stringify(response, null, 2)
+    );
 
-    // 6. Devolver respuesta clara al frontend
     return NextResponse.json({
       success: !response.error,
-      data: response.data,
-      error: response.error,
+      message: "Tu mensaje fue enviado correctamente 🚀",
     });
   } catch (error: any) {
     console.error("💥 Error en /api/send:", error);
