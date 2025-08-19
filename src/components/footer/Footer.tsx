@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // app/[lang]/components/Footer.tsx
 'use client'
@@ -6,58 +7,93 @@ import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { FaFacebook, FaLinkedin, FaYoutube, FaInstagram } from 'react-icons/fa'
+import { sendEmail } from "@/services/resend";
 
 type FooterProps = {
     dictionary: any
 }
 
 function FooterContactSection({ dictionary }: { dictionary: any }) {
-    const [email, setEmail] = useState('')
-    const [messageSent, setMessageSent] = useState(false)
-    const [error, setError] = useState('')
+    const [firstName, setFirstName] = useState("");
+    const [email, setEmail] = useState("");
+    const [messageSent, setMessageSent] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        setError('')
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
+
         if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-            setError(dictionary.footer.invalid_email)
-            return
+            setError(dictionary.footer.invalid_email);
+            return;
         }
-        setMessageSent(true)
-        setEmail('')
-    }
+
+        setIsLoading(true);
+        setMessageSent(false);
+
+        try {
+            const result = await sendEmail(firstName, email);
+
+            // Asumiendo que sendEmail devuelve un objeto con 'data' o 'error'
+            if (result.data?.id) { // Éxito si Resend devuelve un ID
+                setMessageSent(true);
+                setFirstName("");
+                setEmail("");
+            } else {
+                // Captura errores devueltos por nuestra API
+                const errorMessage = result.error?.email?.[0] || result.error?.firstName?.[0] || dictionary.footer.send_error;
+                setError(errorMessage);
+            }
+        } catch (err) {
+            setError(dictionary.footer.network_error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
-        <div>
-            <h2 className="mb-4 font-semibold text-gray-700 dark:text-white">{dictionary.footer.talk}</h2>
-            <p className="mb-4 text-gray-500 dark:text-gray-300 max-w-sm">
-                {dictionary.footer.questions_desc}
-            </p>
-            {messageSent ? (
-                <p className="text-green-600 dark:text-green-400 font-semibold">{dictionary.footer.thanks}</p>
-            ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-sm">
-                    <input
-                        type="email"
-                        placeholder={dictionary.footer.email_placeholder}
-                        className="flex-grow px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <button
-                        type="submit"
-                        className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-6 py-2 transition"
-                    >
-                        {dictionary.footer.send}
-                    </button>
-                </form>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-sm">
+            {messageSent && (
+                <div className="p-3 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    {dictionary.footer.success_message}
+                </div>
             )}
             {error && (
-                <p className="mt-2 text-red-600 dark:text-red-400 font-semibold">{error}</p>
+                <div className="p-3 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    {error}
+                </div>
             )}
-        </div>
-    )
+
+            <input
+                type="text"
+                placeholder={dictionary.footer.name_placeholder}
+                className="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                disabled={isLoading}
+            />
+
+            <input
+                type="email"
+                placeholder={dictionary.footer.email_placeholder}
+                className="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading}
+            />
+
+            <button
+                type="submit"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-6 py-2 transition disabled:bg-indigo-400 disabled:cursor-not-allowed"
+                disabled={isLoading}
+            >
+                {isLoading ? dictionary.footer.sending : dictionary.footer.send}
+            </button>
+        </form>
+    );
 }
 
 export default function Footer({ dictionary }: FooterProps) {
@@ -74,6 +110,7 @@ export default function Footer({ dictionary }: FooterProps) {
 
     return (
         <footer className="bg-gray-50 dark:bg-gray-900 px-6 py-8">
+
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-4">
                 {/* Logo */}
                 <div className="mb-10 flex items-center justify-center sm:justify-start gap-4">

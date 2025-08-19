@@ -11,10 +11,15 @@
     "questions": "Have any questions?",
     "questions_desc": "Feel free to reach out. I always respond and love connecting with new people.",
     "email_placeholder": "Your email address",
+    "name_placeholder": "Your name",
     "send": "Send",
+    "sending": "Sending...",
     "thanks": "Thanks! I'll be in touch soon.",
     "invalid_email": "Please enter a valid email.",
-    "rights": "All rights reserved."
+    "send_error": "There was an error sending the email.",
+    "network_error": "Network error. Please try again.",
+    "rights": "All rights reserved.",
+    "success_message": "Your request was submitted successfully!"
   },
   "intro": {
     "welcome": "Welcome!",

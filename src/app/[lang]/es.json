@@ -11,10 +11,15 @@
     "questions": "¿Tenés alguna consulta?",
     "questions_desc": "No dudes en escribirme. Siempre respondo y me gusta conectar con personas nuevas.",
     "email_placeholder": "Tu correo electrónico",
+    "name_placeholder": "Tu nómbre completo",
     "send": "Enviar",
+    "sending": "Enviando...",
     "thanks": "¡Gracias! Te estaré contactando pronto.",
     "invalid_email": "Por favor, ingresa un email válido.",
-    "rights": "Todos los derechos reservados."
+    "send_error": "Ocurrió un error al enviar el correo.",
+    "network_error": "Error de red. Intenta nuevamente.",
+    "rights": "Todos los derechos reservados.",
+    "success_message": "¡Tu solicitud se envió correctamente!"
   },
   "intro": {
     "welcome": "Bienvenido!",
