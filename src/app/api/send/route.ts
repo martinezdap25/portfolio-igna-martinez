@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     console.log("📤 Enviando email con Resend:", {
       from: process.env.RESEND_FROM_EMAIL,
       to: MY_EMAIL,
-      firstName,
+      firstName: firstName,
       userEmail: email,
     });
 
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
       from: `Ignacio Martinez - Full Stack Developer <${process.env.RESEND_FROM_EMAIL}>`,
       to: [MY_EMAIL], // 👈 siempre a vos
       subject: "📬 Nuevo contacto desde tu portfolio",
-      react: EmailTemplate({ firstName }),
+      react: EmailTemplate({ senderName: firstName, senderEmail: email }),
       replyTo: email,
     });
 

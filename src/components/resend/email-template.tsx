@@ -1,8 +1,9 @@
 interface EmailTemplateProps {
-  firstName: string;
+  senderName: string;
+  senderEmail: string;
 }
 
-export function EmailTemplate({ firstName }: EmailTemplateProps) {
+export function EmailTemplate({ senderName, senderEmail }: EmailTemplateProps) {
   return (
     <div
       style={{
@@ -15,24 +16,20 @@ export function EmailTemplate({ firstName }: EmailTemplateProps) {
       }}
     >
       <h1 style={{ color: "#8B5CF6", textAlign: "center" }}>
-        ¡Hola {firstName}!
+        Nuevo mensaje recibido
       </h1>
 
       <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#F1F5F9" }}>
-        Muchas gracias por comunicarte conmigo ✨ Me alegra que te intereses en
-        mi trabajo. Estoy siempre dispuesto a charlar sobre nuevas
-        oportunidades, colaborar en proyectos creativos o simplemente resolver
-        cualquier duda que tengas.
+        ¡Hola Ignacio! ✨
       </p>
 
       <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#F1F5F9" }}>
-        Contame un poco más sobre cómo puedo ayudarte, y con gusto te responderé
-        lo antes posible 🚀.
+        {senderName} te ha enviado un mensaje a través del formulario de contacto.
       </p>
 
       <div style={{ textAlign: "center", margin: "30px 0" }}>
         <a
-          href="mailto:martinezignaciodev@gmail.com"
+          href={`mailto:${senderEmail}`}
           style={{
             backgroundColor: "#6366F1",
             color: "#FFFFFF",
@@ -43,7 +40,7 @@ export function EmailTemplate({ firstName }: EmailTemplateProps) {
             display: "inline-block",
           }}
         >
-          Responder este correo
+          Contactar con {senderName}
         </a>
       </div>
 
@@ -57,21 +54,7 @@ export function EmailTemplate({ firstName }: EmailTemplateProps) {
           paddingTop: "10px",
         }}
       >
-        Ignacio Martínez · Desarrollador Full-Stack
-        <br />
-        <a
-          href="https://github.com/martinezdap25"
-          style={{ color: "#8B5CF6", textDecoration: "none" }}
-        >
-          GitHub
-        </a>{" "}
-        |{" "}
-        <a
-          href="https://www.linkedin.com/in/ignacio-martinez-dev"
-          style={{ color: "#8B5CF6", textDecoration: "none" }}
-        >
-          LinkedIn
-        </a>
+        Notificación automática · Sitio web de contacto
       </p>
     </div>
   );
