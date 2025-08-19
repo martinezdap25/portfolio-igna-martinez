@@ -35,14 +35,17 @@ function FooterContactSection({ dictionary }: { dictionary: any }) {
         try {
             const result = await sendEmail(firstName, email);
 
-            // Asumiendo que sendEmail devuelve un objeto con 'data' o 'error'
-            if (result.data?.id) { // Éxito si Resend devuelve un ID
+            if (result.success) { // Ahora usamos 'success' que devuelve tu API
                 setMessageSent(true);
                 setFirstName("");
                 setEmail("");
             } else {
-                // Captura errores devueltos por nuestra API
-                const errorMessage = result.error?.email?.[0] || result.error?.firstName?.[0] || dictionary.footer.send_error;
+                // Captura el mensaje de error
+                const errorMessage =
+                    result.error?.email?.[0] ||
+                    result.error?.firstName?.[0] ||
+                    result.error ||
+                    dictionary.footer.send_error;
                 setError(errorMessage);
             }
         } catch (err) {
