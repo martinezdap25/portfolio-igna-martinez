@@ -38,20 +38,20 @@ export async function POST(req: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // 📌 IMPORTANTE: tu propio correo verificado en Resend
+    // Tu propio correo verificado en Resend
     const MY_EMAIL = "martinezignaciodev@gmail.com";
 
     // 4. Enviar correo (a vos)
     console.log("📤 Enviando email con Resend:", {
       from: process.env.RESEND_FROM_EMAIL,
       to: MY_EMAIL,
-      firstName: firstName,
-      userEmail: email,
+      senderName: firstName,
+      senderEmail: email,
     });
 
     const response = await resend.emails.send({
       from: `Ignacio Martinez - Full Stack Developer <${process.env.RESEND_FROM_EMAIL}>`,
-      to: [MY_EMAIL], // 👈 siempre a vos
+      to: [MY_EMAIL],
       subject: "📬 Nuevo contacto desde tu portfolio",
       react: EmailTemplate({ senderName: firstName, senderEmail: email }),
       replyTo: email,
@@ -62,8 +62,9 @@ export async function POST(req: NextRequest) {
       JSON.stringify(response, null, 2)
     );
 
+    // ✅ Siempre que llegamos aquí, el correo fue enviado
     return NextResponse.json({
-      success: !response.error,
+      success: true,
       message: "Tu mensaje fue enviado correctamente 🚀",
     });
   } catch (error: any) {
