@@ -2,6 +2,8 @@
 import axios from "axios";
 
 export const sendEmail = async (firstName: string, email: string) => {
+    console.log("Datos: ", firstName, email);
+    
     try {
         const { data } = await axios.post("/api/send", { firstName, email });
         console.log("Respuesta:", data);

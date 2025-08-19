@@ -11,6 +11,7 @@ const sendEmailSchema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    console.log("Body recibido:", body);
     const validation = sendEmailSchema.safeParse(body);
 
     if (!validation.success) {
@@ -32,6 +33,8 @@ export async function POST(req: NextRequest) {
       subject: "¿En que puedo ayudarte?",
       react: EmailTemplate({ firstName }),
     });
+
+    console.log(`Respuesta de Resend:", ${data}`)
 
     return NextResponse.json({ data });
   } catch (error) {
