@@ -15,7 +15,9 @@ interface Props {
 export default function ProjectGrid({ dict, lang }: Props) {
     const { projects, isLoading, error } = useContext(ProjectsContext);
 
-    console.log(projects, dict);
+    const featuredProjects = projects
+        ?.filter((project) => project.featured) // solo los destacados
+        .slice(0, 3);
 
     return (
         <section className="relative z-10 space-y-6">
@@ -49,7 +51,7 @@ export default function ProjectGrid({ dict, lang }: Props) {
                     <ProjectGridSkeleton count={3} />
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projects?.map((project, index) => (
+                        {featuredProjects?.map((project, index) => (
                             <motion.div
                                 key={project._id}
                                 className="h-full"

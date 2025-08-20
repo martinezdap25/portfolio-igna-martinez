@@ -9,10 +9,8 @@ export function ThemeProvider({ children, attribute = 'class' }: { children: Rea
         const storedTheme = localStorage.getItem('theme')
         if (storedTheme) {
             setTheme(storedTheme)
-            console.log('ThemeProvider: Applying theme from localStorage:', storedTheme)
         } else {
-            setTheme('system') // O 'light' o 'dark', según tu preferencia por defecto
-            console.log('ThemeProvider: Applying system theme (default)')
+            setTheme('system')
         }
     }, [setTheme])
 

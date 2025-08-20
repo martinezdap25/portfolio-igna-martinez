@@ -54,8 +54,6 @@ export async function fetchProjects(
 
   try {
     const response = await axios.get(`${API_URL}/projects?${params.toString()}`);
-    console.log(`URL: ${API_URL}/projects?${params.toString()}`);
-    console.log("Data que recibimos ", response.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -89,6 +87,5 @@ export async function fetchAvailableCategories() {
 
 export async function fetchAvailableYears() {
   const response = await axios.get(`${API_URL}/projects/years`);
-  console.log(response.data);
   return response.data;
 }
