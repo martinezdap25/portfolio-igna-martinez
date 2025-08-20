@@ -125,7 +125,7 @@ export default function ProjectFilters({ filters, setFilters, availableTechnolog
                         <option value="" disabled>
                             Seleccionar Tecnologías
                         </option>
-                        {availableTechnologies.filter(tech => !technology.includes(tech.name)).map(tech => (
+                        {availableTechnologies.filter(tech => !technology.includes(tech._id)).map(tech => (
                             <option key={tech._id} value={tech._id}>
                                 {tech.name}
                             </option>

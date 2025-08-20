@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import DarkModeToggle from "./DarkModeToggle";
 import LanguageDropdown from "./LanguageDropdown";
 
 const navLinks = [
-  { href: "/", key: "inicio" },
-  { href: "/projects", key: "projects" },
-  { href: "#contact", key: "contact" },
+    { href: "/", key: "inicio" },
+    { href: "/projects", key: "projects" },
+    { href: "#contact", key: "contact" },
 ] as const;
 
 type NavKey = typeof navLinks[number]["key"];
@@ -33,16 +34,21 @@ export default function MobileMenu({
                 <LanguageDropdown currentLang={lang} />
             </div>
             <nav className="flex flex-col gap-4 items-start">
-                {navLinks.map(({ href, key }) => (
-                    <a
-                        key={href}
-                        href={href}
-                        onClick={onClose}
-                        className="text-base font-medium text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors"
-                    >
-                        {dict[key]}
-                    </a>
-                ))}
+                {navLinks.map(({ href, key }) => {
+                    const isAnchor = href.startsWith("#");
+                    const url = isAnchor ? href : `/${lang}${href === "/" ? "" : href}`;
+
+                    return (
+                        <Link
+                            key={href}
+                            href={url}
+                            onClick={onClose}
+                            className="text-base font-medium text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors"
+                        >
+                            {dict[key]}
+                        </Link>
+                    );
+                })}
             </nav>
         </div>
     );

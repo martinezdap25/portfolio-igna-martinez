@@ -57,6 +57,7 @@ export default function ProjectList({ lang, dict }: Props) {
     limit: 6,
   });
 
+  const [optionsLoaded, setOptionsLoaded] = useState(false);
   const [projects, setProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -97,8 +98,10 @@ export default function ProjectList({ lang, dict }: Props) {
   }, [filters, availableCategories]);
 
   useEffect(() => {
-    loadProjects();
-  }, [loadProjects]);
+    if (optionsLoaded) {
+      loadProjects();
+    }
+  }, [loadProjects, optionsLoaded]);
 
   useEffect(() => {
     const loadFilterOptions = async () => {
@@ -113,6 +116,8 @@ export default function ProjectList({ lang, dict }: Props) {
         setAvailableYears(years || []);
       } catch (err) {
         console.error("Failed to load filter options:", err);
+      } finally {
+        setOptionsLoaded(true);
       }
     };
     loadFilterOptions();
@@ -151,7 +156,7 @@ export default function ProjectList({ lang, dict }: Props) {
           )}
 
           {/* Grid de proyectos */}
-          {isLoading ? (
+          {isLoading && projects.length === 0 ? (
             <ProjectGridSkeleton />
           ) : error ? (
             <p className="text-center text-red-500">{error}</p>
