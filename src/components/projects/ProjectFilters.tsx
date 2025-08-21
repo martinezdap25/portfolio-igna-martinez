@@ -1,5 +1,7 @@
 "use client";
 
+import { Dictionary } from "@/types/directory";
+
 interface Filters {
     category: string[];
     technology: string[];
@@ -26,10 +28,19 @@ interface ProjectFiltersProps {
     availableTechnologies: Technology[];
     availableCategories: Category[];
     availableYears: string[];
+    dict: Dictionary;
 }
 
-export default function ProjectFilters({ filters, setFilters, availableTechnologies, availableCategories, availableYears }: ProjectFiltersProps) {
+export default function ProjectFilters({
+    filters,
+    setFilters,
+    availableTechnologies,
+    availableCategories,
+    availableYears,
+    dict,
+}: ProjectFiltersProps) {
     const { category, technology, year, favoritesOrFeatured, orderBy } = filters;
+    const t = dict.filtersSection;
 
     const toggleCategory = (cat: string) => {
         if (category.includes(cat)) {
@@ -75,23 +86,25 @@ export default function ProjectFilters({ filters, setFilters, availableTechnolog
         });
     };
 
-    const favoriteFeaturedOptions = ["Sí", "No"];
+    const favoriteFeaturedOptions = [t.yes, t.no];
     const orderByOptions = [
-        { label: "Más reciente", value: "year_desc" },
-        { label: "Más antiguo", value: "year_asc" },
-        { label: "Nombre (A-Z)", value: "name_asc" },
-        { label: "Nombre (Z-A)", value: "name_desc" },
+        { label: t.orderOptions.year_desc, value: "year_desc" },
+        { label: t.orderOptions.year_asc, value: "year_asc" },
+        { label: t.orderOptions.name_asc, value: "name_asc" },
+        { label: t.orderOptions.name_desc, value: "name_desc" },
     ];
 
     return (
         <aside className="w-full max-w-xs sticky top-8 self-start hidden lg:block">
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md ring-1 ring-gray-300 dark:ring-gray-700 p-6 space-y-8">
-                <h2 className="text-xl font-extrabold text-indigo-700 dark:text-indigo-400 tracking-tight">Filtros</h2>
+                <h2 className="text-xl font-extrabold text-indigo-700 dark:text-indigo-400 tracking-tight">
+                    {t.title}
+                </h2>
 
                 {/* Categoría */}
                 <div>
                     <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                        Categoría
+                        {t.category}
                     </h3>
                     <div className="flex flex-col space-y-3">
                         {availableCategories.map(cat => (
@@ -115,15 +128,15 @@ export default function ProjectFilters({ filters, setFilters, availableTechnolog
                 {/* Tecnologías */}
                 <div>
                     <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                        Tecnologías
+                        {t.technologies}
                     </h3>
                     <select
                         onChange={handleTechnologyChange}
-                        value="" // para resetear tras seleccionar
+                        value=""
                         className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
                     >
                         <option value="" disabled>
-                            Seleccionar Tecnologías
+                            {t.selectTechnologies}
                         </option>
                         {availableTechnologies.filter(tech => !technology.includes(tech._id)).map(tech => (
                             <option key={tech._id} value={tech._id}>
@@ -139,7 +152,7 @@ export default function ProjectFilters({ filters, setFilters, availableTechnolog
                                     key={techId}
                                     className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-700 dark:text-indigo-100"
                                 >
-                                    {tech?.name || "Tecnología"}
+                                    {tech?.name || t.technologies}
                                     <button
                                         type="button"
                                         onClick={() => removeTechnology(techId)}
@@ -156,14 +169,14 @@ export default function ProjectFilters({ filters, setFilters, availableTechnolog
                 {/* Año */}
                 <div>
                     <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                        Año
+                        {t.year}
                     </h3>
                     <select
                         onChange={handleYearChange}
                         value={year || ""}
                         className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
                     >
-                        <option value="">Seleccionar Año</option>
+                        <option value="">{t.selectYear}</option>
                         {availableYears.map(y => (
                             <option key={y} value={y}>
                                 {y}
@@ -175,7 +188,7 @@ export default function ProjectFilters({ filters, setFilters, availableTechnolog
                 {/* Favoritos / Destacados */}
                 <div>
                     <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                        Favoritos / Destacados
+                        {t.favorites}
                     </h3>
                     <div className="flex flex-col space-y-3">
                         {favoriteFeaturedOptions.map(value => (
@@ -200,7 +213,7 @@ export default function ProjectFilters({ filters, setFilters, availableTechnolog
                 {/* Orden */}
                 <div>
                     <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                        Orden
+                        {t.order}
                     </h3>
                     <div className="flex flex-col space-y-3">
                         {orderByOptions.map(({ label, value }) => (
@@ -228,7 +241,7 @@ export default function ProjectFilters({ filters, setFilters, availableTechnolog
                         onClick={clearFilters}
                         className="w-full text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
                     >
-                        Limpiar filtros
+                        {t.clear}
                     </button>
                 </div>
             </div>

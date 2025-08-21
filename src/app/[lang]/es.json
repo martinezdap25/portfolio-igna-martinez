@@ -68,5 +68,24 @@
     "duration": "Duración",
     "visitPage": "Visitar página",
     "visitGithub": "Ir a Github"
+  },
+  "filtersSection": {
+    "title": "Filtros",
+    "category": "Categoría",
+    "technologies": "Tecnologías",
+    "year": "Año",
+    "favorites": "Favoritos / Destacados",
+    "order": "Orden",
+    "selectYear": "Seleccionar Año",
+    "selectTechnologies": "Seleccionar Tecnologías",
+    "clear": "Limpiar filtros",
+    "orderOptions": {
+      "year_desc": "Más reciente",
+      "year_asc": "Más antiguo",
+      "name_asc": "Nombre (A-Z)",
+      "name_desc": "Nombre (Z-A)"
+    },
+    "yes": "Sí",
+    "no": "No"
   }
 }

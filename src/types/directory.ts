@@ -51,4 +51,23 @@ export interface Dictionary {
     visitPage: string;
     visitGithub: string;
   };
+  filtersSection: {
+    title: string;
+    category: string;
+    technologies: string;
+    year: string;
+    favorites: string;
+    order: string;
+    selectYear: string;
+    selectTechnologies: string;
+    clear: string;
+    orderOptions: {
+      year_desc: string;
+      year_asc: string;
+      name_asc: string;
+      name_desc: string;
+    };
+    yes: string;
+    no: string;
+  };
 }

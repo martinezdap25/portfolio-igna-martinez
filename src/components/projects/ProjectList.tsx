@@ -134,6 +134,7 @@ export default function ProjectList({ lang, dict }: Props) {
             availableTechnologies={availableTechnologies}
             availableCategories={availableCategories}
             availableYears={availableYears}
+            dict={dict}
           />
         )}
 
@@ -179,6 +180,7 @@ export default function ProjectList({ lang, dict }: Props) {
         availableTechnologies={availableTechnologies}
         availableCategories={availableCategories}
         availableYears={availableYears}
+        dict={dict}
       />
     </section>
   );

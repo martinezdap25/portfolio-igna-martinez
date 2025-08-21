@@ -1,5 +1,6 @@
 "use client";
 
+import { Dictionary } from "@/types/directory";
 import React from "react";
 import { AiOutlineClose as CloseIcon } from "react-icons/ai";
 
@@ -31,6 +32,7 @@ interface SidebarFilterProps {
     availableTechnologies: Technology[];
     availableCategories: Category[];
     availableYears: string[];
+    dict: Dictionary;
 }
 
 export default function SidebarFilter({
@@ -40,7 +42,8 @@ export default function SidebarFilter({
     onClose,
     availableTechnologies,
     availableCategories,
-    availableYears
+    availableYears,
+    dict,
 }: SidebarFilterProps) {
     const { category, technology, year, favoritesOrFeatured, orderBy } = filters;
 
@@ -88,12 +91,12 @@ export default function SidebarFilter({
         });
     };
 
-    const favoriteFeaturedOptions = ["Sí", "No"];
+    const favoriteFeaturedOptions = [dict.filtersSection.yes, dict.filtersSection.no];
     const orderByOptions = [
-        { label: "Más reciente", value: "year_desc" },
-        { label: "Más antiguo", value: "year_asc" },
-        { label: "Nombre (A-Z)", value: "name_asc" },
-        { label: "Nombre (Z-A)", value: "name_desc" },
+        { label: dict.filtersSection.orderOptions.year_desc, value: "year_desc" },
+        { label: dict.filtersSection.orderOptions.year_asc, value: "year_asc" },
+        { label: dict.filtersSection.orderOptions.name_asc, value: "name_asc" },
+        { label: dict.filtersSection.orderOptions.name_desc, value: "name_desc" },
     ];
 
     return (
@@ -109,7 +112,7 @@ export default function SidebarFilter({
                 <div className="p-6 space-y-8 h-full overflow-y-auto">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl font-extrabold text-indigo-700 dark:text-indigo-400 tracking-tight">
-                            Filtros
+                            {dict.filtersSection.title}
                         </h2>
                         <button
                             onClick={onClose}
@@ -123,7 +126,7 @@ export default function SidebarFilter({
                     {/* Categoría */}
                     <div>
                         <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                            Categoría
+                            {dict.filtersSection.category}
                         </h3>
                         <div className="flex flex-col space-y-3">
                             {availableCategories.map(cat => (
@@ -147,7 +150,7 @@ export default function SidebarFilter({
                     {/* Tecnologías */}
                     <div>
                         <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                            Tecnologías
+                            {dict.filtersSection.technologies}
                         </h3>
                         <select
                             onChange={handleTechnologyChange}
@@ -155,7 +158,7 @@ export default function SidebarFilter({
                             className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
                         >
                             <option value="" disabled>
-                                Seleccionar Tecnologías
+                                {dict.filtersSection.selectTechnologies}
                             </option>
                             {availableTechnologies.filter(tech => !technology.includes(tech._id)).map(tech => (
                                 <option key={tech._id} value={tech._id}>
@@ -188,14 +191,14 @@ export default function SidebarFilter({
                     {/* Año */}
                     <div>
                         <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                            Año
+                            {dict.filtersSection.year}
                         </h3>
                         <select
                             onChange={handleYearChange}
                             value={year || ""}
                             className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400"
                         >
-                            <option value="">Seleccionar Año</option>
+                            <option value="">{dict.filtersSection.selectYear}</option>
                             {availableYears.map(y => (
                                 <option key={y} value={y}>
                                     {y}
@@ -207,7 +210,7 @@ export default function SidebarFilter({
                     {/* Favoritos / Destacados */}
                     <div>
                         <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                            Favoritos / Destacados
+                            {dict.filtersSection.favorites}
                         </h3>
                         <div className="flex flex-col space-y-3">
                             {favoriteFeaturedOptions.map(value => (
@@ -232,7 +235,7 @@ export default function SidebarFilter({
                     {/* Orden */}
                     <div>
                         <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
-                            Orden
+                            {dict.filtersSection.order}
                         </h3>
                         <div className="flex flex-col space-y-3">
                             {orderByOptions.map(({ label, value }) => (
@@ -260,7 +263,7 @@ export default function SidebarFilter({
                             onClick={clearFilters}
                             className="w-full text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
                         >
-                            Limpiar filtros
+                            {dict.filtersSection.clear}
                         </button>
                     </div>
                 </div>

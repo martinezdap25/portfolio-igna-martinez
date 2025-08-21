@@ -68,5 +68,24 @@
     "duration": "Duration",
     "visitPage": "Visit page",
     "visitGithub": "Go to Github"
+  },
+  "filtersSection": {
+    "title": "Filters",
+    "category": "Category",
+    "technologies": "Technologies",
+    "year": "Year",
+    "favorites": "Favorites / Featured",
+    "order": "Order",
+    "selectYear": "Select Year",
+    "selectTechnologies": "Select Technologies",
+    "clear": "Clear filters",
+    "orderOptions": {
+      "year_desc": "Most recent",
+      "year_asc": "Oldest",
+      "name_asc": "Name (A-Z)",
+      "name_desc": "Name (Z-A)"
+    },
+    "yes": "Yes",
+    "no": "No"
   }
 }
