@@ -70,4 +70,7 @@ export interface Dictionary {
     yes: string;
     no: string;
   };
+  loader: {
+    loadingText: string;
+  };
 }

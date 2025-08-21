@@ -87,5 +87,8 @@
     },
     "yes": "Yes",
     "no": "No"
+  },
+  "loader": {
+    "loadingText": "Loading"
   }
 }

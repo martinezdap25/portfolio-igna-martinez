@@ -1,9 +1,14 @@
 "use client";
 
+import { Dictionary } from "@/types/directory";
 import * as motion from "motion/react-client";
 import { useEffect, useState } from "react";
 
-export default function Loader() {
+interface LoaderProps {
+  dict: Dictionary;
+}
+
+export default function Loader( { dict }: LoaderProps ) {
   // Para controlar cuando mostrar la animación de los puntos
   const [dots, setDots] = useState("...");
 
@@ -45,7 +50,7 @@ export default function Loader() {
       />
 
       <p className="text-gray-600 dark:text-gray-300 text-lg font-semibold select-none">
-        Cargando
+        {dict.loader.loadingText}
         <span className="inline-block w-4 text-indigo-600 font-bold">{dots}</span>
       </p>
     </motion.div>

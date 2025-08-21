@@ -87,5 +87,8 @@
     },
     "yes": "Sí",
     "no": "No"
+  },
+  "loader": {
+    "loadingText": "Cargando"
   }
 }

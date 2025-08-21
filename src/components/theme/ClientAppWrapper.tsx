@@ -42,7 +42,7 @@ export default function ClientAppWrapper({ dict, children }: Props) {
         setShowIntro(false)
     }
 
-    if (loading) return <Loader />
+    if (loading) return <Loader dict={dict}/>
     if (showIntro) return <IntroScreen dict={dict} onFinish={handleIntroFinish} />
 
     return (
