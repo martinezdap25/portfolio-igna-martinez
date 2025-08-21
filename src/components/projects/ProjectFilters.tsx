@@ -1,6 +1,7 @@
 "use client";
 
 import { Dictionary } from "@/types/directory";
+import React from "react";
 
 interface Filters {
     category: string[];
@@ -43,11 +44,13 @@ export default function ProjectFilters({
     const t = dict.filtersSection;
 
     const toggleCategory = (cat: string) => {
-        if (category.includes(cat)) {
-            setFilters(prev => ({ ...prev, category: prev.category.filter(c => c !== cat), page: 1 }));
-        } else {
-            setFilters(prev => ({ ...prev, category: [...prev.category, cat], page: 1 }));
-        }
+        setFilters(prev => ({
+            ...prev,
+            category: prev.category.includes(cat)
+                ? prev.category.filter(c => c !== cat)
+                : [...prev.category, cat],
+            page: 1,
+        }));
     };
 
     const handleTechnologyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -58,7 +61,11 @@ export default function ProjectFilters({
     };
 
     const removeTechnology = (techToRemove: string) => {
-        setFilters(prev => ({ ...prev, technology: prev.technology.filter(t => t !== techToRemove), page: 1 }));
+        setFilters(prev => ({
+            ...prev,
+            technology: prev.technology.filter(t => t !== techToRemove),
+            page: 1,
+        }));
     };
 
     const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -101,25 +108,29 @@ export default function ProjectFilters({
                     {t.title}
                 </h2>
 
-                {/* Categoría */}
+                {/* Categorías */}
                 <div>
                     <h3 className="text-base font-semibold text-gray-800 dark:text-gray-300 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
                         {t.category}
                     </h3>
                     <div className="flex flex-col space-y-3">
                         {availableCategories.map(cat => (
-                            <label key={cat._id} className="flex items-center gap-3 cursor-pointer">
+                            <label
+                                key={cat._id}
+                                className={`flex items-center gap-3 cursor-pointer font-medium ${category.includes(cat.name)
+                                    ? "text-indigo-700 dark:text-indigo-400"
+                                    : "text-gray-700 dark:text-gray-300"
+                                    }`}
+                            >
                                 <input
                                     type="checkbox"
                                     checked={category.includes(cat.name)}
                                     onChange={() => toggleCategory(cat.name)}
-                                    className="peer appearance-none h-5 w-5 rounded border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800
-                  checked:border-indigo-500 checked:bg-indigo-500
-                  focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-700 transition"
+                                    className="appearance-none h-5 w-5 rounded border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800
+                             checked:border-indigo-500 checked:bg-indigo-500
+                             focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-700 transition"
                                 />
-                                <span className="text-gray-700 dark:text-gray-300 font-medium peer-checked:text-indigo-700 dark:peer-checked:text-indigo-400 transition">
-                                    {cat.name}
-                                </span>
+                                {cat.name}
                             </label>
                         ))}
                     </div>
@@ -191,22 +202,32 @@ export default function ProjectFilters({
                         {t.favorites}
                     </h3>
                     <div className="flex flex-col space-y-3">
-                        {favoriteFeaturedOptions.map(value => (
-                            <label key={value} className="flex items-center gap-3 cursor-pointer">
-                                <input
-                                    type="radio"
-                                    name="favoritesOrFeatured"
-                                    checked={favoritesOrFeatured === value}
-                                    onChange={() => setFavorites(value)}
-                                    className="peer appearance-none h-5 w-5 rounded-full border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800
-                  checked:border-indigo-500 checked:bg-indigo-500
-                  focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-700 transition"
-                                />
-                                <span className="text-gray-700 dark:text-gray-300 font-medium peer-checked:text-indigo-700 dark:peer-checked:text-indigo-400 transition">
+                        {favoriteFeaturedOptions.map(value => {
+                            const isSelected = favoritesOrFeatured === value;
+                            return (
+                                <label
+                                    key={value}
+                                    className={`flex items-center gap-3 cursor-pointer font-medium
+            ${isSelected ? "text-indigo-700 dark:text-indigo-400" : "text-gray-700 dark:text-gray-300"}`}
+                                >
+                                    <span
+                                        className={`inline-block w-5 h-5 rounded-full border-2
+              ${isSelected
+                                                ? "border-indigo-500 bg-indigo-500"
+                                                : "border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800"} 
+              transition`}
+                                    />
+                                    <input
+                                        type="radio"
+                                        name="favoritesOrFeatured"
+                                        checked={isSelected}
+                                        onChange={() => setFavorites(value)}
+                                        className="hidden"
+                                    />
                                     {value}
-                                </span>
-                            </label>
-                        ))}
+                                </label>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -216,22 +237,32 @@ export default function ProjectFilters({
                         {t.order}
                     </h3>
                     <div className="flex flex-col space-y-3">
-                        {orderByOptions.map(({ label, value }) => (
-                            <label key={value} className="flex items-center gap-3 cursor-pointer">
-                                <input
-                                    type="radio"
-                                    name="orderBy"
-                                    checked={orderBy === value}
-                                    onChange={() => setOrder(value)}
-                                    className="peer appearance-none h-5 w-5 rounded-full border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800
-        checked:border-indigo-500 checked:bg-indigo-500
-        focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-700 transition"
-                                />
-                                <span className="text-gray-700 dark:text-gray-300 font-medium peer-checked:text-indigo-700 dark:peer-checked:text-indigo-400 transition">
+                        {orderByOptions.map(({ label, value }) => {
+                            const isSelected = orderBy === value;
+                            return (
+                                <label
+                                    key={value}
+                                    className={`flex items-center gap-3 cursor-pointer font-medium
+            ${isSelected ? "text-indigo-700 dark:text-indigo-400" : "text-gray-700 dark:text-gray-300"}`}
+                                >
+                                    <span
+                                        className={`inline-block w-5 h-5 rounded-full border-2
+              ${isSelected
+                                                ? "border-indigo-500 bg-indigo-500"
+                                                : "border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800"} 
+              transition`}
+                                    />
+                                    <input
+                                        type="radio"
+                                        name="orderBy"
+                                        checked={isSelected}
+                                        onChange={() => setOrder(value)}
+                                        className="hidden"
+                                    />
                                     {label}
-                                </span>
-                            </label>
-                        ))}
+                                </label>
+                            );
+                        })}
                     </div>
                 </div>
 
