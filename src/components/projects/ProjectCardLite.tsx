@@ -63,7 +63,7 @@ export default function ProjectCardLite({ project, dict, lang }: Props) {
                 {/* CTA siempre al fondo */}
                 <div className="mt-auto pt-4">
                     <Link
-                        href={`/projects/${project._id}`}
+                        href={`/${lang}/projects/${project._id}`}
                         className="inline-block text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline"
                     >
                         {dict.projects.seeMoreDetails}

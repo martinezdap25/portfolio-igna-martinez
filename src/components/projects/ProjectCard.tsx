@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Project } from '@/types/project';
 import ImageCarousel from '../ui/ImageCarousel';
 import { Dictionary } from '@/types/directory';
+import Link from 'next/link';
 
 interface Props {
     project: Project;
@@ -51,12 +52,12 @@ export default function ProjectCard({ project, dict, lang }: Props) {
                         </span>
                     )}
 
-                    <a
-                        href={`/projects/${project._id}`}
+                    <Link
+                        href={`/${lang}/projects/${project._id}`}
                         className="mt-auto inline-block text-indigo-600 dark:text-indigo-400 hover:underline text-sm font-medium self-start"
                     >
                         {dict.projects.seeMoreDetails}
-                    </a>
+                    </Link>
                 </div>
 
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h3>
