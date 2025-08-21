@@ -6,7 +6,7 @@
 import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
-import { FaFacebook, FaLinkedin, FaYoutube, FaInstagram } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa'
 import { sendEmail } from "@/services/resend";
 
 type FooterProps = {
@@ -158,42 +158,42 @@ export default function Footer({ dictionary }: FooterProps) {
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-gray-500 dark:text-gray-400 text-sm">
                     <span>© 2025 Ignacio Martinez. {dictionary.footer.rights}</span>
                     <div className="flex justify-center space-x-6">
-                        <a
-                            href="https://facebook.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Facebook"
-                            className="transition duration-200 transform hover:scale-110 hover:text-indigo-600 dark:hover:text-indigo-400"
-                        >
-                            <FaFacebook size={20} />
-                        </a>
-                        <a
-                            href="https://linkedin.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="LinkedIn"
-                            className="transition duration-200 transform hover:scale-110 hover:text-indigo-600 dark:hover:text-indigo-400"
-                        >
-                            <FaLinkedin size={20} />
-                        </a>
-                        <a
-                            href="https://youtube.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="YouTube"
-                            className="transition duration-200 transform hover:scale-110 hover:text-indigo-600 dark:hover:text-indigo-400"
-                        >
-                            <FaYoutube size={20} />
-                        </a>
-                        <a
-                            href="https://instagram.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Instagram"
-                            className="transition duration-200 transform hover:scale-110 hover:text-indigo-600 dark:hover:text-indigo-400"
-                        >
-                            <FaInstagram size={20} />
-                        </a>
+                        <div className="flex justify-center space-x-6">
+                            <a
+                                href="https://github.com/martinezdap25"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="GitHub"
+                                className="transition duration-200 transform hover:scale-110 hover:text-indigo-600 dark:hover:text-indigo-400"
+                            >
+                                <FaGithub size={20} />
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/in/ignacio-martinez-dev"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="LinkedIn"
+                                className="transition duration-200 transform hover:scale-110 hover:text-indigo-600 dark:hover:text-indigo-400"
+                            >
+                                <FaLinkedin size={20} />
+                            </a>
+                            <a
+                                href="https://www.instagram.com/nachomartinezdap"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Instagram"
+                                className="transition duration-200 transform hover:scale-110 hover:text-indigo-600 dark:hover:text-indigo-400"
+                            >
+                                <FaInstagram size={20} />
+                            </a>
+                            <a
+                                href="mailto:martinezignaciodev@gmail.com"
+                                aria-label="Email"
+                                className="transition duration-200 transform hover:scale-110 hover:text-indigo-600 dark:hover:text-indigo-400"
+                            >
+                                <FaEnvelope size={20} />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

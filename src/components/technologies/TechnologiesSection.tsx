@@ -3,6 +3,7 @@
 import { FC, useState } from 'react';
 import CategoryFilter from './CategoryFilter';
 import TechnologyCard from './TechnologyCard';
+import { Dictionary } from '@/types/directory';
 
 interface Technology {
     _id: string;
@@ -16,11 +17,12 @@ interface Technology {
 
 interface Props {
     technologies: Technology[];
+    dict: Dictionary;
 }
 
 const hardcodedCategories = ['All', 'Frontend', 'Backend', 'Tools', 'Fullstack'];
 
-const TechnologiesSection: FC<Props> = ({ technologies }) => {
+const TechnologiesSection: FC<Props> = ({ technologies, dict }) => {
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
     const filteredTechnologies =
@@ -32,7 +34,7 @@ const TechnologiesSection: FC<Props> = ({ technologies }) => {
         <section className="max-w-7xl mx-auto">
             <div className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-lg p-6 md:p-10">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-                    Tecnologías por Categoría
+                    {dict.technologies.title}
                 </h2>
 
                 <CategoryFilter

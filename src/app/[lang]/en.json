@@ -90,5 +90,8 @@
   },
   "loader": {
     "loadingText": "Loading"
+  },
+  "technologies": {
+    "title": "Technologies by category"
   }
 }

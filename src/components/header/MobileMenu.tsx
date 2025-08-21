@@ -6,8 +6,7 @@ import LanguageDropdown from "./LanguageDropdown";
 
 const navLinks = [
     { href: "/", key: "inicio" },
-    { href: "/projects", key: "projects" },
-    { href: "#contact", key: "contact" },
+    { href: "/projects", key: "projects" }
 ] as const;
 
 type NavKey = typeof navLinks[number]["key"];

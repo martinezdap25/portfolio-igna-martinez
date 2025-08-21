@@ -73,4 +73,7 @@ export interface Dictionary {
   loader: {
     loadingText: string;
   };
+  technologies: {
+    title: string;
+  };
 }
