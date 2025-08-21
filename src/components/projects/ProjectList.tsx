@@ -42,6 +42,12 @@ interface Filters {
   limit: number;
 }
 
+const favoritesMap: Record<string, string> = {
+  "Sí": "featured",
+  "No": "not_featured",
+  "Yes": "featured"
+};
+
 export default function ProjectList({ lang, dict }: Props) {
   const safeLang = lang === "es" ? "es" : "en";
   const isDesktop = useIsDesktop();
@@ -77,12 +83,9 @@ export default function ProjectList({ lang, dict }: Props) {
         category: categoryIds,
         technology: filters.technology,
         year: filters.year ?? undefined,
-        favoritesOrFeatured:
-          filters.favoritesOrFeatured === "Sí"
-            ? "featured"
-            : filters.favoritesOrFeatured === "No"
-              ? "not_featured"
-              : undefined,
+        favoritesOrFeatured: filters.favoritesOrFeatured
+          ? (favoritesMap[filters.favoritesOrFeatured] as "featured" | "not_featured")
+          : undefined,
         orderBy: filters.orderBy ?? undefined,
         page: filters.page,
         limit: filters.limit,
