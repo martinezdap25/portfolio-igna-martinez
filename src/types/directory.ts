@@ -76,4 +76,8 @@ export interface Dictionary {
   technologies: {
     title: string;
   };
+  titles: {
+    home: string;
+    projects: string;
+  }
 }

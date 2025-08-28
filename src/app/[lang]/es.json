@@ -93,5 +93,9 @@
   },
   "technologies": {
     "title": "Tecnologías por categoría"
-  }
+  },
+  "titles": {  
+    "home": "Inicio - Ignacio Martinez",   
+    "projects": "Proyectos - Ignacio Martinez"
+  }  
 }

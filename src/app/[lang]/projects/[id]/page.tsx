@@ -5,10 +5,30 @@ import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import InfoCard from "@/components/projects/InfoCard";
 import NotFound from "@/components/ui/NotFound";
-import { getDictionary } from "../../dictionaries";
+import { getDictionary } from "@/app/[lang]/dictionaries";
+import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ id: string; lang: "es" | "en" }>;
+}
+
+// Metadata dinámica para cada proyecto
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id, lang } = await params;
+  const dict = await getDictionary(lang);
+
+  const project = await fetchProjectById(id);
+  if (!project) {
+    return { title: "Proyecto no encontrado" };
+  }
+
+  return {
+    title: {
+      default: project.title[lang],
+      template: "%s | Ignacio Martinez Portfolio",
+    },
+    icons: { icon: '/favicon.ico' },
+  };
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
@@ -16,14 +36,13 @@ export default async function ProjectDetailPage({ params }: Props) {
   const dict = await getDictionary(lang);
 
   let project;
-
   try {
     project = await fetchProjectById(id);
-  } catch (error) {
+  } catch {
     return <NotFound />;
   }
 
-  if (!project) return <p>Proyecto no encontrado</p>;
+  if (!project) return <NotFound />;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-10 transition-colors duration-300">
