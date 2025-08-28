@@ -94,8 +94,14 @@
   "technologies": {
     "title": "Technologies by category"
   },
-  "titles": {  
-    "home": "Home - Ignacio Martinez",  
+  "titles": {
+    "home": "Home - Ignacio Martinez",
     "projects": "Projects - Ignacio Martinez"
+  },
+  "meta": {
+    "home": {
+      "title": "Ignacio Martinez - Full Stack Developer",
+      "description": "Full-Stack developer with strong focus on Frontend. Building modern, intuitive digital experiences with React, Next.js and TypeScript."
+    }
   }
 }

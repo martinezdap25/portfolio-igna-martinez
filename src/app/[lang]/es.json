@@ -97,5 +97,11 @@
   "titles": {  
     "home": "Inicio - Ignacio Martinez",   
     "projects": "Proyectos - Ignacio Martinez"
-  }  
+  },
+  "meta": {  
+    "home": {  
+      "title": "Ignacio Martinez - Desarrollador Full Stack",   
+      "description": "Desarrollador Full-Stack con fuerte inclinación hacia el Frontend. Creando experiencias digitales modernas e intuitivas con React, Next.js y TypeScript."  
+    } 
+  }
 }

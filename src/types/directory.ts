@@ -79,5 +79,11 @@ export interface Dictionary {
   titles: {
     home: string;
     projects: string;
+  },
+  meta: {
+    home: {
+      title: string;
+      description: string;
+    }
   }
 }
