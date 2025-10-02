@@ -16,7 +16,8 @@ export default function ProjectGrid({ dict, lang }: Props) {
     const { projects, isLoading, error } = useContext(ProjectsContext);
 
     const featuredProjects = projects
-        ?.filter((project) => project.featured) // solo los destacados
+        ?.filter((project) => project.featured)
+        .sort(() => Math.random() - 0.5) // mezcla aleatoria
         .slice(0, 3);
 
     return (
